@@ -1,0 +1,244 @@
+% 
+% Annual Cognitive Science Conference
+% Sample LaTeX Paper -- Proceedings Format
+% 
+
+% Original : Ashwin Ram (ashwin@cc.gatech.edu)       04/01/1994
+% Modified : Johanna Moore (jmoore@cs.pitt.edu)      03/17/1995
+% Modified : David Noelle (noelle@ucsd.edu)          03/15/1996
+% Modified : Pat Langley (langley@cs.stanford.edu)   01/26/1997
+% Latex2e corrections by Ramin Charles Nakisa        01/28/1997 
+% Modified : Tina Eliassi-Rad (eliassi@cs.wisc.edu)  01/31/1998
+% Modified : Trisha Yannuzzi (trisha@ircs.upenn.edu) 12/28/1999 (in process)
+% Modified : Mary Ellen Foster (M.E.Foster@ed.ac.uk) 12/11/2000
+% Modified : Ken Forbus                              01/23/2004
+% Modified : Eli M. Silk (esilk@pitt.edu)            05/24/2005
+% Modified : Niels Taatgen (taatgen@cmu.edu)         10/24/2006
+% Modified : David Noelle (dnoelle@ucmerced.edu)     11/19/2014
+
+%% Change "letterpaper" in the following line to "a4paper" if you must.
+
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage{cogsci}
+\usepackage{pslatex}
+\usepackage{apacite}
+\usepackage{color}
+\usepackage{url}
+
+\definecolor{Red}{RGB}{255,0,0}
+\newcommand{\red}[1]{\textcolor{Red}{#1}}  
+
+
+
+\title{Understanding the Costs and Benefits of Learning When Teaching Others}
+ 
+\author{{\large \bf Sophie Bridgers (sbridge@stanford.edu)} \\
+  Department of Psychology, 1202 W. Johnson Street \\
+  Madison, WI 53706 USA
+  \AND {\large \bf Emily Tang (emjtang@stanford.edu)} \\
+  Department of Educational Psychology, 1025 W. Johnson Street \\
+  Madison, WI 53706 USA}
+
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+To-Do
+
+\textbf{Keywords:} 
+pedagogy; social learning; cost-benefit analysis; Bayesian models
+\end{abstract}
+
+
+\section{Introduction}
+
+Teaching is one of the most powerful forms of human communication, enabling a rapid, effective dissemination of knowledge and culture within and across generations. Remarkably, we decide what information to teach without direct access to the learner's mind and often without explicit requests for information. How do we make this inference and how does this capacity develop? 
+
+Consider a naive learner who encounters a novel toy and tries to figure out how it works via self-guided exploration. The learner likely has her own ideas about how the toy works and will test these hypotheses by intervening on the toy. However, this generation of evidence is costly, requiring time and effort. Additionally, the value of this exploration is uncertain as the learner might fail to activate the toy. Thus, an effective teacher should be sensitive to opportunities for maximizing the benefits of learning (the value of the information gained) and minimizing its costs (the effort needed to acquire it). 
+\red{teachers can help minimize the cost of learning by communicating information that would be difficult, time-consuming, or perhaps even impossible to obtain on our own
+sensitive to whether informants support accurate learning?try to support the most accurate learning in a learner?
+one advantage of social learning is that is reduces the amount of data required for accurate inference?learner can make inductive inferences from small amounts of data
+In teaching, best to provide information that will lead to the most accurate inference (costly information is also potentially information the learner will never gain?too difficult, they won't persist long enough?minimizing cost is another way to maximize value?!)
+However, neither the costs nor benefits of learning are directly observable; one must consider the learner's prior knowledge and goals, and reason forward in time to calculate the expected costs and benefits of learning.
+learners are sensitive to the cost of information transfer and additional demonstrations on a toy?can the reason about the expected costs of learning on your own vs. receiving instruction?
+causal learning, where a helpful teacher may significantly reduce the number of interventions required to learn latent causal structure}
+
+Prior research suggests that even young children might be capable of such a sophisticated inference. (insert work about infants?) When reasoning about an agent's goal-directed actions, children consider the relative costs and rewards of pursuing certain goals over others and make judgments consistent with a naive utility calculus (e.g., \cite{JaraEttinger2015}). Relatedly, children and adults consider both the value and costs of information transfer when evaluating teachers, preferring teachers who provide enough evidence to support accurate inference over those who are exhaustively informative \cite{GweonReview, Shafto2012}. Likewise, children can decide how much information to teach given the learner's prior knowledge and goals and the costs of information transfer \cite{GweonSchulz2014}. Building upon this work, Bridgers and Gweon hypothesize that children (and adults) can flexibly decide what information to teach via an intuitive cost-benefit analysis. More specifically, they predict that children (5 to 7 years old) reason about the expected benefits and costs of learning on one's own (from the perspective of the learner), and successfully choose to teach information that maximizes the benefits and minimizes the costs. 
+
+In a current experiment, Bridgers and Gweon are investigating whether children selectively teach information that decreases the expected costs of learning. In this study, children explore two novel toys. One toy has an obvious causal mechanism that is easy to discover and that produces an exciting effect (a single, red button that causes the toy to light-up and spin). The other toy has a non-obvious mechanism that is difficult to discover without instruction and that produces a relatively less interesting effect (two of seven buttons must be pressed simultaneously to make the toy play music). Once children learn how the toys work, they are asked to choose one to teach to a naive learner who will play with the toys later all by herself. Bridgers and Gweon predict that more children will choose to teach the difficult toy than the easy toy, but not in the control condition where each toy is equally easy to figure out.
+
+Here, we formalize the intuitions Bridgers and Gweon investigate with a computational theory of efficient teaching. We develop a Bayesian cognitive model of a knowledgeable teacher reasoning about a naive learner who wants to figure out how two toys work. In this simplified scenario, the teacher selects one of two toys to teach the learner and the learner discovers how the other toy works on her own. We assume the teacher is helpful and that her goal is to teach the toy that will maximize the probability that the learner figures out how to activate both toys. The teacher, thus, critically bases her decision on the relative costs for the learner of figuring out how the toys work without instruction. 
+
+In this paper, we first describe the details of the model and show that it predicts the teacher will teach the toy that has a higher cost of learning but when costs are equal, the toy with the higher value. Second, we compare the model's predictions to adult performance in an experiment based on Bridgers and Gweon's experiments with children. Finally, we conclude by discussing how the predictions of the model help us to better understand how we decide what to teach others and how the model could be extended to incorporate the teacher's reasoning about her own costs and benefits of teaching to better account for the dyadic nature of pedagogical interactions.
+
+\section{Model}
+
+Central to our modeling approach is the principle of rationality and previous work formalizing "theory of mind" as the inverse of rational decision making (Bake, Saxe, and Tenenbaum, 2009). 
+
+teaches the toy that reduces the most uncertainty for the learner
+
+We plan to merge the vending machine model with the teacher-learner model (both described in chapter 6): we will represent toys as vending machines, we will represent cost as the uncertainty over what action will cause the toy to produce an outcome, and we will represent value as the quantity of that outcome. Conditioning on the teacher's and learner's goals, we will query the teacher model for which of the two toys the teacher selects to teach. We will conduct an experiment with adults to test the predictions of our model. Participants will be presented with several pairs of toys with varying learning costs and values (e.g., a toy that is easy to learn but high in value and a toy that is hard to learn but low in value), and participants will be asked to select the toy in each pair they think is more important to teach. Ideally, we will compare the predictions of our model against children's performance as well.
+
+"Central to our understanding is the principle of rationality: an agent tends to choose actions that she expects to lead to outcomes that satisfy her goals. (This is a slight restatement of the principle as discussed in C. L. Baker, Saxe, and Tenenbaum (2009), building on earlier work by Dennett (1989), among others.) We can represent this in Church by a query?an agent infers an action which will lead to their goal being satisfied"
+
+\subsection{Model Predictions}
+
+Second level headings should be 11~point, initial caps, bold, and
+flush left. Leave one line space above the heading and 1/4~line
+space below the heading.
+develop intuitions that underlie the predictions of the model?
+
+
+\section{Experiment 1: Testing Adult Intuitions}
+
+First level headings should be in 12~point, initial caps, bold and
+centered. Leave one line space above the heading and 1/4~line space
+below the heading.
+
+\subsection{Method}
+
+Second level headings should be 11~point, initial caps, bold, and
+flush left. Leave one line space above the heading and 1/4~line
+space below the heading.
+
+
+\subsubsection{Participants}
+
+Third level headings should be 10~point, initial caps, bold, and flush
+left. Leave one line space above the heading, but no space after the
+heading.
+
+\subsubsection{Stimuli}
+
+Third level headings should be 10~point, initial caps, bold, and flush
+left. Leave one line space above the heading, but no space after the
+heading.
+
+\subsubsection{Procedure}
+
+\subsection{Results}
+
+Second level headings should be 11~point, initial caps, bold, and
+flush left. Leave one line space above the heading and 1/4~line
+space below the heading.
+
+\subsection{Discussion}
+
+Second level headings should be 11~point, initial caps, bold, and
+flush left. Leave one line space above the heading and 1/4~line
+space below the heading.
+
+\section{Conclusion}
+
+First level headings should be in 12~point, initial caps, bold and
+centered. Leave one line space above the heading and 1/4~line space
+below the heading.
+
+
+
+\section{Formalities, Footnotes, and Floats}
+
+
+
+
+\subsection{Footnotes}
+
+Indicate footnotes with a number\footnote{Sample of the first
+footnote.} in the text. Place the footnotes in 9~point type at the
+bottom of the column on which they appear. Precede the footnote block
+with a horizontal rule.\footnote{Sample of the second footnote.}
+
+
+\subsection{Tables}
+
+Number tables consecutively. Place the table number and title (in
+10~point) above the table with one line space above the caption and
+one line space below it, as in Table~\ref{sample-table}. You may float
+tables to the top or bottom of a column, or set wide tables across
+both columns.
+
+\begin{table}[!ht]
+\begin{center} 
+\caption{Sample table title.} 
+\label{sample-table} 
+\vskip 0.12in
+\begin{tabular}{ll} 
+\hline
+Error type    &  Example \\
+\hline
+Take smaller        &   63 - 44 = 21 \\
+Always borrow~~~~   &   96 - 42 = 34 \\
+0 - N = N           &   70 - 47 = 37 \\
+0 - N = 0           &   70 - 47 = 30 \\
+\hline
+\end{tabular} 
+\end{center} 
+\end{table}
+
+
+\subsection{Figures}
+
+All artwork must be very dark for purposes of reproduction and should
+not be hand drawn. Number figures sequentially, placing the figure
+number and caption, in 10~point, after the figure with one line space
+above the caption and one line space below it, as in
+Figure~\ref{sample-figure}. If necessary, leave extra white space at
+the bottom of the page to avoid splitting the figure and figure
+caption. You may float figures to the top or bottom of a column, or
+set wide figures across both columns.
+
+\begin{figure}[ht]
+\begin{center}
+\fbox{CoGNiTiVe ScIeNcE}
+\end{center}
+\caption{This is a figure.} 
+\label{sample-figure}
+\end{figure}
+
+
+\section{Acknowledgments}
+
+Place acknowledgments (including funding information) in a section at
+the end of the paper.
+
+
+\section{References Instructions}
+
+Follow the APA Publication Manual for citation format, both within the
+text and in the reference list, with the following exceptions: (a) do
+not cite the page numbers of any book, including chapters in edited
+volumes; (b) use the same format for unpublished references as for
+published ones. Alphabetize references by the surnames of the authors,
+with single author entries preceding multiple author entries. Order
+references by the same authors by the year of publication, with the
+earliest first.
+
+Use a first level section heading, ``{\bf References}'', as shown
+below. Use a hanging indent style, with the first line of the
+reference flush against the left margin and subsequent lines indented
+by 1/8~inch. Below are example references for a conference paper, book
+chapter, journal article, dissertation, book, technical report, and
+edited volume, respectively.
+
+%\nocite{ChalnickBillman1988a}
+%\nocite{Feigenbaum1963a}
+%\nocite{Hill1983a}
+%\nocite{OhlssonLangley1985a}
+%% \nocite{Lewis1978a}
+%\nocite{Matlock2001}
+%\nocite{NewellSimon1972a}
+%\nocite{ShragerLangley1990a}
+
+
+\bibliographystyle{apacite}
+
+\setlength{\bibleftmargin}{.125in}
+\setlength{\bibindent}{-\bibleftmargin}
+
+\bibliography{cogsci_template}
+
+
+\end{document}
