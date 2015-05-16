@@ -1,0 +1,258 @@
+<html>
+
+<head>
+    <title>Costs and Benefits of Learning</title>
+
+    <!--JS-->
+
+    <!-- external general utilities -->
+    <script src="../_shared/js/jquery-1.11.1.min.js "></script>
+    <script src="../_shared/full-projects/jquery-ui/jquery-ui.min.js"></script>
+    <script src="../_shared/js/underscore-min.js"></script>
+    <!-- if you want to draw stuff: -->
+    <!-- <script src="../_shared/js/raphael-min.js"></script> -->
+
+    <!-- cocolab experiment logic -->
+    <script src="../_shared/js/exp-V2.js"></script>
+    <script src="../_shared/js/stream-V2.js"></script>
+
+    <!-- cocolab general utilities -->
+    <script src="../_shared/js/mmturkey.js "></script>
+    <script src="../_shared/js/browserCheck.js"></script>
+    <script src="../_shared/js/utils.js"></script>
+    <!-- if you want to draw cute creatures (depends on raphael): -->
+    <!-- <script src="../_shared/js/ecosystem.js"></script> -->
+
+    <!-- experiment specific helper functions -->
+    <!-- <script src="js/local-utils.js"></script> -->
+
+    <!--CSS-->
+    <link href="../_shared/full-projects/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../_shared/css/cocolab-style.css" rel="stylesheet" type="text/css"/>
+    <link href="css/local-style.css" rel="stylesheet" type="text/css"/>
+
+    <!-- experiment file -->
+    <script src="js/template.js"></script>
+
+    <!-- toy-div js -->
+    <!-- <script src="js/toy-div.js"></script> -->
+    
+</head>
+
+<body onload="init();">
+  <noscript>This task requires JavaScript.</noscript>
+
+  <div class="slide" id="i0" >
+    <img src="../_shared/images/sll_logo.png" alt="Stanford SLL" id="sll_logo"></img>
+    <p id="cocolab">Stanford Social Learning Lab</p>
+    <p id="instruct-text">You will explore two interactive toys and answer some questions about them. The HIT should take ~3 minutes. Please pay attention. Your answers are important to the advancement of science. Thanks!</p>
+    <button id="start_button" type="button">Start Experiment</button>
+    <p id="legal">Legal information: By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact Sophie Bridgers at <a href="mailto://sbridge@stanford.edu">sbridge@stanford.edu</a> or Michael C. Frank, at mcfrank@stanford.edu. You must be  at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.</p>
+  </div>
+
+  <div class="slide" id="instructions">
+    <h3>Instructions</h3>
+    <p>Please read the following story and answer the questions presented.</p>
+    <button onclick="_s.button()">Continue</button>
+  </div>
+
+  <div class="slide" id="single_trial">
+    <!-- <p>Here are two toys. Each toy has a special effect when you activate it, and these special effects could be different.  -->
+
+    <p> Here are two toys. One toy will light up when you activate it, and the other toy will play music when you activate it. <b>Explore how the toys work by pressing the yellow and red buttons.</b>
+    <div class="toy-div">
+      <table>
+        <tr>
+          <td id="toy-div-col1">
+            <img class="toy-div-img" id="unactivatedToyA" src="images/toys/unactivatedToyA.jpg"></img>
+
+            <div class="toy-div-btn-panel">
+             
+              <img class="toy-btn" id="redbtn" src="images/toys/redbutton.png" width=60>
+            </div>
+          </td>
+          <td id="toy-div-col2">
+            <img class="toy-div-img" id="unactivatedToyB" src="images/toys/unactivatedToyB.jpg"></img>
+
+            <div class="toy-div-btn-panel">
+              <table>
+                <tr>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn1" src="images/toys/yellowbutton.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn2" src="images/toys/yellowbutton.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn3" src="images/toys/yellowbutton.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn4" src="images/toys/yellowbutton.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn5" src="images/toys/yellowbutton.png" width=60>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn6" src="images/toys/yellowbutton.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn7" src="images/toys/yellowbutton.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn8" src="images/toys/yellowbutton.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn9" src="images/toys/yellowbutton.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn10" src="images/toys/yellowbutton.png" width=60>
+                  </td>
+               </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- <img src="images/toys/unactivatedToys.png" width=800 alt="UNACTIVATEDTOYS"> </img>  -->
+
+	 <!-- <p id="manipulation"> </p><br> -->
+  <button onclick="_s.button()">Continue</button></p>
+
+  </div>
+
+  <div class="slide" id="response_trial">
+    <p>Ollie wants to know how both toys work, but you can only choose <b>one</b> toy to teach.<br>
+    <center><img src="images/toys/ollie.png" ></img></center>
+   <b>Which toy would you select to teach Ollie?</b>
+
+
+    <div class="toy-div">
+      <table>
+        <tr>
+          <td id="toy-div-col1">
+            <img class="toy-div-img" id="toyA" src="images/toys/teachToyA.jpg"></img>
+            <center><a href="#" class="teach-btn" onclick="_s.buttonToyA()">Teach Toy A</a></center>
+
+            <!-- <center><button class="teach-btn" onclick="_s.buttontoyA()">Teach Toy A</button></center> -->
+
+          </td>
+          <td id="toy-div-col2">
+            <img class="toy-div-img" id="toyB" src="images/toys/teachToyB.jpg"></img>
+            <center><a href="#" class="teach-btn" onclick="_s.buttonToyB()">Teach Toy B</a></center>
+
+            <!-- <center><button class="teach-btn" onclick="_s.buttontoyB()">Teach Toy A</button></center> -->
+          </td>
+        </tr>
+      </table>
+    </div>
+
+   <!--  <p>Then, Denise rearranges the containers in<br>
+    the room until the room looks like the picture below.</p>
+    <div class="image-div">
+   <div class = "absolute-div-red"> red: <input type="text" id="text_response_red"></input>%</div>
+   <div class = "absolute-div-green"> green: <input type="text" id="text_response_green"></input>%</div>
+	<div class = "absolute-div-purple"> purple: <input type="text" id="text_response_purple"></input>%</div>
+	<div class = "absolute-div-blue"> blue: <input type="text" id="text_response_blue"></input>%</div>
+    </div><br> -->
+
+    <!-- <input type ="text" id="toy_response"></input> -->
+</div>
+ <!-- 
+  <div class="slide" id="color_check">
+  <p id="color_check_inst">Please answer the questions below. <br>
+  Type your responses in the spaces provided under each question. </p> <br>
+  
+  <img src="images/redBox.png" width=160 alt="Box 1"> </img>
+  <p> What color is the box above? </p> <input type="text" id="text_response_color_red"></input><br>
+  <br>
+  <img src="images/greenBox.png" width=110 alt="Box 2"> </img>
+  <p> What color is the box above? </p> <input type="text" id="text_response_color_green"></input><br>
+  <br>
+  <img src="images/purpleBox.png" width=150 alt="Box 3"> </img>
+  <p> What color is the box above? </p> <input type="text" id="text_response_color_purple"></input><br>
+  <br>
+  <img src="images/blueBox.png" width=100 alt="Box 4"> </img>
+  <p> What color is the box above? </p> <input type="text" id="text_response_color_blue"></input><br>
+  <br>
+  <button onclick="_s.button()">Continue</button><br>
+    <p class="err3">Please type your answers (color words) in the spaces provided. <br>
+    If you are unsure, please make your best guess.</p><br>
+	
+  </div>
+    
+--> 
+  <div class="slide"  id="subj_info">
+    <div class="long_form">
+      <div class="subj_info_title">Additional information</div>
+      <p class="info">Answering these questions is optional, but will help us understand your answers.</p>
+      <p>Did you read the instructions and do you think you did the HIT correctly?</p>
+      <label><input type="radio"  name="assess" value="No"/>No</label>
+      <label><input type="radio"  name="assess" value="Yes"/>Yes</label>
+      <label><input type="radio"  name="assess" value="Confused"/>I was confused</label>
+     
+      <p>Gender:
+        <select id="gender">
+          <label><option value=""/></label>
+          <label><option value="Male"/>Male</label>
+          <label><option value="Female"/>Female</label>
+          <label><option value="Other"/>Other</label>
+        </select>
+      </p>
+
+      <p>Age: <input type="text" id="age"/></p>
+      
+      <!-- <p>Are you colorblind?</p>
+      <label><input type="radio"  name="colorblind" value="No"/>No</label>
+      <label><input type="radio"  name="colorblind" value="Yes"/>Yes</label>
+      <label><input type="radio"  name="colorblind" value="Decline"/>I prefer not to state</label>
+ -->
+      <p>Level Of Education:
+        <select id="education">
+          <label><option value="-1"/></label>
+          <label><option value="0"/>Some High School</label>
+          <label><option value="1"/>Graduated High School</label>
+          <label><option value="2"/>Some College</label>
+          <label><option value="3"/>Graduated College</label>
+          <label><option value="4"/>Hold a higher degree</label>
+        </select>
+      </p>
+
+      <p>Native Language: <input type="text" id="language"/></p>
+      <label>(the language(s) spoken at home when you were a child)</label>
+
+      <p>Did you enjoy the hit?</p>
+      <select id="enjoyment">
+        <label><option value="-1"></option></label>
+        <label><option value="0">Worse than the Average HIT</option></label>
+        <label><option value="1" >An Average HIT</option></label>
+        <label><option value="2">Better than average HIT</option></label>
+      </select>
+
+      <p>We would be interested in any comments you have about this experiment.<br>
+      For example, did you experience any technical difficulties? Was anything confusing, and if so, what? <br>
+      Please type your comments here:</p>
+      <textarea id="comments" rows="3" cols="50"></textarea>
+      <br/>
+      <button onclick="_s.submit()">Submit</button>
+    </div>
+  </div>
+
+  <div id="thanks" class="slide js" >
+    <p  class="big">Thanks for your time!</p>
+  </div>
+
+  <div class="progress">
+    <span>Progress:</span>
+    <div class="bar-wrapper">
+      <div class="bar" width="0%">
+      </div>
+    </div>
+  </div>
+
+</body>
+ <script src="js/store.js"></script>
+	<script src="js/fingerprint1.js"></script>
+</html>
