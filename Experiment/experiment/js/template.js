@@ -162,6 +162,119 @@ slides.color_check = slide({
     },
   });
 
+slides.teach_explanation =  slide({
+    name : "teach_explanation",
+    submit : function(e){
+      //if (e.preventDefault) e.preventDefault(); // I don't know what this means.
+      exp.why_data = {
+         why : $("#teach_explanation").val(),
+      };
+      exp.go(); //use exp.go() if and only if there is no "present" data.
+    }
+  });
+
+ slides.hard_choice = slide({
+    name : "hard_choice",
+
+    /* trial information for this block
+     (the variable 'stim' will change between each of these values,
+      and for each of these, present_handle will be run.) */
+    //present : [
+      //{subject: "dog", object: "ball"},
+      //{subject: "cat", object: "windowsill"},
+      //{subject: "bird", object: "shiny object"},
+   // ],
+
+    //this gets run only at the beginning of the block
+   present_handle : function(stim) {
+     $(".err").hide();
+
+      this.stim = stim; //I like to store this information in the slide so I can record it later.
+
+
+      //$(".prompt").html(stim.subject + "s like " + stim.object + "s.");
+      this.init_sliders();
+      exp.sliderPost = null; //erase current slider value
+    },
+
+    button : function() {
+      if (exp.sliderPost == null) {
+        $(".err").show();
+      } else {
+        this.log_responses();
+
+        /* use _stream.apply(this); if and only if there is
+        "present" data. (and only *after* responses are logged) */
+        _stream.apply(this);
+      }
+    },
+
+    init_sliders : function() {
+      utils.make_slider("#hard_choice", function(event, ui) {
+        exp.sliderPost = ui.value;
+      });
+    },
+
+    log_responses : function() {
+      exp.data_trials.push({
+        "trial_type" : "hard_choice",
+        "response" : exp.sliderPost
+      });
+    }
+  });
+  
+   slides.cool_choice = slide({
+    name : "cool_choice",
+
+    /* trial information for this block
+     (the variable 'stim' will change between each of these values,
+      and for each of these, present_handle will be run.) */
+    //present : [
+      //{subject: "dog", object: "ball"},
+      //{subject: "cat", object: "windowsill"},
+      //{subject: "bird", object: "shiny object"},
+   // ],
+
+    //this gets run only at the beginning of the block
+   present_handle : function(stim) {
+     $(".err").hide();
+
+      this.stim = stim; //I like to store this information in the slide so I can record it later.
+
+
+      //$(".prompt").html(stim.subject + "s like " + stim.object + "s.");
+      this.init_sliders();
+      exp.sliderPost = null; //erase current slider value
+    },
+
+    button : function() {
+      if (exp.sliderPost == null) {
+        $(".err").show();
+      } else {
+        this.log_responses();
+
+        /* use _stream.apply(this); if and only if there is
+        "present" data. (and only *after* responses are logged) */
+        _stream.apply(this);
+      }
+    },
+
+    init_sliders : function() {
+      utils.make_slider("#cool_choice", function(event, ui) {
+        exp.sliderPost = ui.value;
+      });
+    },
+
+    log_responses : function() {
+      exp.data_trials.push({
+        "trial_type" : "cool_choice",
+        "response" : exp.sliderPost
+      });
+    }
+  });
+  
+  
+  
   slides.subj_info =  slide({
     name : "subj_info",
     submit : function(e){
@@ -186,6 +299,7 @@ slides.color_check = slide({
       exp.data= {
           "trials" : exp.data_trials,
           "catch_trials" : exp.catch_trials,
+          "teach_explanation" : exp.why_data,
           "system" : exp.system,
           "condition" : exp.condition,
           "subject_information" : exp.subj_data,
@@ -215,7 +329,7 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=["i0", "instructions", "single_trial", "response_trial", 'subj_info', 'thanks'];
+  exp.structure=["i0", "instructions", "single_trial", "response_trial", "teach_explanation", "hard_choice", "cool_choice", 'subj_info', 'thanks'];
   
   
   exp.data_trials = [];

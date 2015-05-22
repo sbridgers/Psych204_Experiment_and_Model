@@ -52,14 +52,18 @@
 
   <div class="slide" id="instructions">
     <h3>Instructions</h3>
-    <p>Please read the following story and answer the questions presented.</p>
+    <p>You will be shown two interactive toys and asked to figure out how they work using your keyboard. After you figure out how the toys work,
+    you will be asked some questions about them. Please read all instructions carefully and follow the prompts provided.</p>
     <button onclick="_s.button()">Continue</button>
   </div>
 
   <div class="slide" id="single_trial">
     <!-- <p>Here are two toys. Each toy has a special effect when you activate it, and these special effects could be different.  -->
 
-    <p> Here are two toys. One toy will light up when you activate it, and the other toy will play music when you activate it. <b>Explore how the toys work by pressing the yellow and red buttons.</b>
+    <p> Here are two toys. Each toy does something different, and it is your job to figure out how they work. Press continue
+    below to get started with exploring the toys! <p> <!-- <b>Explore how the toys work by pressing the yellow and red buttons.</b>-->
+<!-- Emily, I think we just want the images of the two toys here without the buttons below them. Then we will add in the buttons
+on the exploratory play slides for each toy.-->
     <div class="toy-div">
       <table>
         <tr>
@@ -124,8 +128,12 @@
   </div>
 
   <div class="slide" id="response_trial">
-    <p>Ollie wants to know how both toys work, but you can only choose <b>one</b> toy to teach.<br>
+    <p>This is Ollie. Ollie does not know how these toys work. 
+    <br> But he really wants to make <b>both</b> of them go.
+    <br> You can help Ollie and <b>teach him</b> how <b>ONE of these toys</b> works. <br> He will try the other toy by himself. 
+ 
     <center><img src="images/toys/ollie.png" ></img></center>
+   <br>
    <b>Which toy would you select to teach Ollie?</b>
 
 
@@ -184,6 +192,41 @@
   </div>
     
 --> 
+
+<div class="slide" id="teach_explanation">
+ <p>Why did you choose to teach Ollie this toy?</p>
+      <textarea id="teach_explanation" rows="3" cols="50"></textarea>
+      <br/>
+       <!-- Emily, I think it'd be good to include a picture of the toy they chose. -->
+         <button onclick="_s.button()">Continue</button>
+  </div>
+
+<div class="slide" id="hard_choice">
+	<p>Which toy was harder to figure out?</p>
+    <p class="prompt"></p>
+    <table id="slider_table" class="slider_table">
+      <tr><td class="left">Toy A</td><td class="right">Toy B</td></tr>
+      <tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
+    </table>
+    <button onclick="_s.button()">Continue</button>
+    <div class="err">Please adjust the slider before continuing.</div>
+         <button onclick="_s.button()">Continue</button>
+         </div>
+         
+
+  
+ <div class="slide" id="cool_choice">
+    <p>Which toy has the cooler effect?</p>
+    <p class="prompt"></p>
+    <table id="slider_table" class="slider_table">
+      <tr><td class="left">Toy A</td><td class="right">Toy B</td></tr>
+      <tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
+    </table>
+    <button onclick="_s.button()">Continue</button>
+    <div class="err">Please adjust the slider before continuing.</div>
+  </div>
+  
+  
   <div class="slide"  id="subj_info">
     <div class="long_form">
       <div class="subj_info_title">Additional information</div>
