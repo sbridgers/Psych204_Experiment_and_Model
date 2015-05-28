@@ -131,44 +131,42 @@ function make_slides(f) {
     },
   });
 
-slides.color_check = slide({
-	name: "color_check",
-	start: function () {
-		$(".err3").hide();
-	},
-	button : function() {
+// slides.color_check = slide({
+// 	name: "color_check",
+// 	start: function () {
+// 		$(".err3").hide();
+// 	},
+// 	button : function() {
 	
-	response_color_red = $("#text_response_color_red").val();
-	response_color_green = $("#text_response_color_green").val();
-	response_color_purple = $("#text_response_color_purple").val();
-	response_color_blue = $("#text_response_color_blue").val();
-	debugger;
+// 	response_color_red = $("#text_response_color_red").val();
+// 	response_color_green = $("#text_response_color_green").val();
+// 	response_color_purple = $("#text_response_color_purple").val();
+// 	response_color_blue = $("#text_response_color_blue").val();
+// 	debugger;
 
-	if (($("#text_response_color_red").val().length == 0 || isNaN($("#text_response_color_red").val()) == false) || 
-	($("#text_response_color_green").val().length == 0 || isNaN($("#text_response_color_green").val()) == false) || 
-      ($("#text_response_color_purple").val().length == 0 || isNaN($("#text_response_color_purple").val()) == false) || 
-      ($("#text_response_color_blue").val().length == 0 || isNaN($("#text_response_color_blue").val()) == false)) {
-        $(".err3").show();
-        } else {
-        exp.data_trials.push({
-          "trial_type" : "color_check",
-          "response_color_red" : response_color_red,
-          "response_color_green" : response_color_green,
-          "response_color_purple" : response_color_purple,
-          "response_color_blue" : response_color_blue  
-        });
-        exp.go(); //make sure this is at the *end*, after you log your data
-      }
-    },
-  });
+// 	if (($("#text_response_color_red").val().length == 0 || isNaN($("#text_response_color_red").val()) == false) || 
+// 	($("#text_response_color_green").val().length == 0 || isNaN($("#text_response_color_green").val()) == false) || 
+//       ($("#text_response_color_purple").val().length == 0 || isNaN($("#text_response_color_purple").val()) == false) || 
+//       ($("#text_response_color_blue").val().length == 0 || isNaN($("#text_response_color_blue").val()) == false)) {
+//         $(".err3").show();
+//         } else {
+//         exp.data_trials.push({
+//           "trial_type" : "color_check",
+//           "response_color_red" : response_color_red,
+//           "response_color_green" : response_color_green,
+//           "response_color_purple" : response_color_purple,
+//           "response_color_blue" : response_color_blue  
+//         });
+//         exp.go(); //make sure this is at the *end*, after you log your data
+//       }
+//     },
+//   });
 
 slides.teach_explanation =  slide({
     name : "teach_explanation",
     submit : function(e){
       //if (e.preventDefault) e.preventDefault(); // I don't know what this means.
-      exp.why_data = {
-         why : $("#teach_explanation").val(),
-      };
+      exp.why_data = $("#teach_explanation_response").val();
       exp.go(); //use exp.go() if and only if there is no "present" data.
     }
   });
@@ -330,7 +328,8 @@ function init() {
     };
   //blocks of the experiment:
   exp.structure=["i0", "instructions", "single_trial", "response_trial", "teach_explanation", "hard_choice", "cool_choice", 'subj_info', 'thanks'];
-  
+  // exp.structure=["i0", "instructions", "single_trial", "response_trial", "teach_explanation", 'subj_info', 'thanks'];
+
   
   exp.data_trials = [];
   //make corresponding slides:
