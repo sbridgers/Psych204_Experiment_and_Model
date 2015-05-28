@@ -100,6 +100,7 @@ function make_slides(f) {
           "response": "toyA",
           "rt_in_seconds": this.rt
         });
+        exp.toy_taught = "toyA";
         exp.go(); //make sure this is at the *end*, after you log your data
     },
     buttonToyB : function() {
@@ -126,6 +127,7 @@ function make_slides(f) {
           "response" : "toyB",
           "rt_in_seconds": this.rt
         });
+        exp.toy_taught = "toyB";
         exp.go(); //make sure this is at the *end*, after you log your data
       // }}
     },
@@ -164,8 +166,21 @@ function make_slides(f) {
 
 slides.teach_explanation =  slide({
     name : "teach_explanation",
+    start: function() {
+      console.log(exp.condition);
+      console.log(exp.toy_taught);
+      if (exp.toy_taught == "toyA") {
+        console.log("Subject chose Toy A");
+        $("#toy_taught_img").attr("src","images/toys/teachToyA.jpg");
+      } else {
+        console.log("Subject chose Toy B");
+        $("#toy_taught_img").attr("src","images/toys/teachToyB.jpg");
+      }
+    
+     },
     submit : function(e){
       //if (e.preventDefault) e.preventDefault(); // I don't know what this means.
+      
       exp.why_data = $("#teach_explanation_response").val();
       exp.go(); //use exp.go() if and only if there is no "present" data.
     }
@@ -184,10 +199,10 @@ slides.teach_explanation =  slide({
    // ],
 
     //this gets run only at the beginning of the block
-   present_handle : function(stim) {
+    start : function() {
      $(".err").hide();
 
-      this.stim = stim; //I like to store this information in the slide so I can record it later.
+      // this.stim = stim; //I like to store this information in the slide so I can record it later.
 
 
       //$(".prompt").html(stim.subject + "s like " + stim.object + "s.");
@@ -208,7 +223,7 @@ slides.teach_explanation =  slide({
     },
 
     init_sliders : function() {
-      utils.make_slider("#hard_choice", function(event, ui) {
+      utils.make_slider("#single_slider", function(event, ui) {
         exp.sliderPost = ui.value;
       });
     },
@@ -298,6 +313,7 @@ slides.teach_explanation =  slide({
           "trials" : exp.data_trials,
           "catch_trials" : exp.catch_trials,
           "teach_explanation" : exp.why_data,
+          // "toy_taught": exp.toy_choice,
           "system" : exp.system,
           "condition" : exp.condition,
           "subject_information" : exp.subj_data,
@@ -329,7 +345,7 @@ function init() {
   //blocks of the experiment:
   exp.structure=["i0", "instructions", "single_trial", "response_trial", "teach_explanation", "hard_choice", "cool_choice", 'subj_info', 'thanks'];
   // exp.structure=["i0", "instructions", "single_trial", "response_trial", "teach_explanation", 'subj_info', 'thanks'];
-
+  exp.toy_taught = "";
   
   exp.data_trials = [];
   //make corresponding slides:

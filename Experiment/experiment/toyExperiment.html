@@ -194,22 +194,41 @@ on the exploratory play slides for each toy.-->
 --> 
 
 <div class="slide" id="teach_explanation">
- <p>Why did you choose to teach Ollie this toy?</p>
+ <p><b>Why did you choose to teach Ollie this toy?</b></p>
+ <!-- 720 × 616 -->
+      <center><img id="toy_taught_img" width=400px height=300px src="images/toys/teachToyA.jpg"></img></center>
       <textarea id="teach_explanation_response" rows="3" cols="50"></textarea>
       <br/>
-       <!-- Emily, I think it'd be good to include a picture of the toy they chose. -->
-         <button onclick="_s.submit()">Continue</button>
+      <button onclick="_s.submit()">Continue</button>
 </div>
 
 <div class="slide" id="hard_choice">
 	<p>Which toy was harder to figure out?</p>
+     <div class="toy-div">
+      <table>
+        <tr>
+          <td id="toy-div-col1">
+            <img class="toy-div-img" id="toyA" src="images/toys/teachToyA.jpg"></img>
+
+            <!-- <center><button class="teach-btn" onclick="_s.buttontoyA()">Teach Toy A</button></center> -->
+
+          </td>
+          <td id="toy-div-col2">
+            <img class="toy-div-img" id="toyB" src="images/toys/teachToyB.jpg"></img>
+
+            <!-- <center><button class="teach-btn" onclick="_s.buttontoyB()">Teach Toy A</button></center> -->
+          </td>
+        </tr>
+      </table>
+    </div>
+
     <p class="prompt"></p>
     <table id="slider_table" class="slider_table">
       <tr><td class="left">Toy A</td><td class="right">Toy B</td></tr>
       <tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
     </table>
-    <button onclick="_s.button()">Continue</button>
-    <div class="err">Please adjust the slider before continuing.</div>
+<!--     <button onclick="_s.button()">Continue</button>
+ -->    <div class="err">Please adjust the slider before continuing.</div>
          <button onclick="_s.button()">Continue</button>
 </div>
          
