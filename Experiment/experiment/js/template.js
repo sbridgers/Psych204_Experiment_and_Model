@@ -54,6 +54,13 @@ function make_slides(f) {
     }
   });
 
+  slides.display_toys = slide({
+    name : "display_toys",
+    button : function() {
+      exp.go();
+    }
+  });
+
   slides.single_trial = slide({
     name : "single_trial",
     // start : function() {
@@ -65,7 +72,40 @@ function make_slides(f) {
     }
 
   });
+  slides.catch_trial =  slide({
+    name : "catch_trial",
+    start: function() {
+      $(".err").hide();
+      this.startTime = Date.now();
 
+      // console.log(exp.condition);
+      // console.log(exp.toy_taught);
+      // if (exp.toy_taught == "toyA") {
+      //   console.log("Subject chose Toy A");
+      //   $("#toy_taught_img").attr("src","images/toys/teachToyA.jpg");
+      // } else {
+      //   console.log("Subject chose Toy B");
+      //   $("#toy_taught_img").attr("src","images/toys/teachToyB.jpg");
+      // }
+    
+     },
+    button : function(){
+      //if (e.preventDefault) e.preventDefault(); // I don't know what this means.
+      this.endTime = Date.now()
+      this.rt = (this.endTime - this.startTime)/1000;
+      this.response = $("#how_toyA_works").val();
+      // console.log(this.response)
+      if (this.response == "") {
+        console.log("No response given.")
+        $(".err").show();
+      } else {
+        exp.catch_trials.push({
+        "response": this.response,
+        "rt_in_seconds" : this.rt });
+        exp.go(); //use exp.go() if and only if there is no "present" data.
+      }
+    }
+  });
   slides.response_trial = slide({
     name: "response_trial",
     
@@ -167,6 +207,9 @@ function make_slides(f) {
 slides.teach_explanation =  slide({
     name : "teach_explanation",
     start: function() {
+      $(".err").hide();
+      this.startTime = Date.now();
+
       console.log(exp.condition);
       console.log(exp.toy_taught);
       if (exp.toy_taught == "toyA") {
@@ -180,9 +223,19 @@ slides.teach_explanation =  slide({
      },
     submit : function(e){
       //if (e.preventDefault) e.preventDefault(); // I don't know what this means.
-      
-      exp.why_data = $("#teach_explanation_response").val();
-      exp.go(); //use exp.go() if and only if there is no "present" data.
+      this.endTime = Date.now()
+      this.rt = (this.endTime - this.startTime)/1000;
+      this.response = $("#teach_explanation_response").val();
+
+      if (this.response == "") {
+        console.log("No response given.")
+        $(".err").show();
+      } else {
+        exp.why_data = {
+        "response": this.response,
+        "rt_in_seconds" : this.rt };
+        exp.go(); //use exp.go() if and only if there is no "present" data.
+      }
     }
   });
 
@@ -201,6 +254,7 @@ slides.teach_explanation =  slide({
     //this gets run only at the beginning of the block
     start : function() {
      $(".err").hide();
+    this.startTime = Date.now();
 
       // this.stim = stim; //I like to store this information in the slide so I can record it later.
 
@@ -219,19 +273,23 @@ slides.teach_explanation =  slide({
         /* use _stream.apply(this); if and only if there is
         "present" data. (and only *after* responses are logged) */
         _stream.apply(this);
+        exp.go();
       }
     },
 
     init_sliders : function() {
-      utils.make_slider("#single_slider", function(event, ui) {
+      utils.make_slider("#hard_choice_slider", function(event, ui) {
         exp.sliderPost = ui.value;
       });
     },
 
     log_responses : function() {
+      this.endTime = Date.now()
+      this.rt = (this.endTime - this.startTime)/1000;
       exp.data_trials.push({
         "trial_type" : "hard_choice",
-        "response" : exp.sliderPost
+        "response" : exp.sliderPost,
+        "rt_in_seconds": this.rt
       });
     }
   });
@@ -249,10 +307,11 @@ slides.teach_explanation =  slide({
    // ],
 
     //this gets run only at the beginning of the block
-   present_handle : function(stim) {
+   start : function(stim) {
      $(".err").hide();
+    this.startTime = Date.now();
 
-      this.stim = stim; //I like to store this information in the slide so I can record it later.
+      // this.stim = stim; //I like to store this information in the slide so I can record it later.
 
 
       //$(".prompt").html(stim.subject + "s like " + stim.object + "s.");
@@ -269,19 +328,23 @@ slides.teach_explanation =  slide({
         /* use _stream.apply(this); if and only if there is
         "present" data. (and only *after* responses are logged) */
         _stream.apply(this);
+        exp.go();
       }
     },
 
     init_sliders : function() {
-      utils.make_slider("#cool_choice", function(event, ui) {
+      utils.make_slider("#cool_choice_slider", function(event, ui) {
         exp.sliderPost = ui.value;
       });
     },
 
     log_responses : function() {
+      this.endTime = Date.now()
+      this.rt = (this.endTime - this.startTime)/1000;
       exp.data_trials.push({
         "trial_type" : "cool_choice",
-        "response" : exp.sliderPost
+        "response" : exp.sliderPost,
+        "rt_in_seconds": this.rt
       });
     }
   });
@@ -343,7 +406,7 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=["i0", "instructions", "single_trial", "response_trial", "teach_explanation", "hard_choice", "cool_choice", 'subj_info', 'thanks'];
+  exp.structure=["i0", "instructions", "display_toys", "single_trial", "catch_trial", "response_trial", "teach_explanation", "hard_choice", "cool_choice", 'subj_info', 'thanks'];
   // exp.structure=["i0", "instructions", "single_trial", "response_trial", "teach_explanation", 'subj_info', 'thanks'];
   exp.toy_taught = "";
   

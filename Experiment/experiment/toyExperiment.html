@@ -57,10 +57,61 @@
     <button onclick="_s.button()">Continue</button>
   </div>
 
-  <div class="slide" id="single_trial">
+<div class="slide" id="display_toys">
     <!-- <p>Here are two toys. Each toy has a special effect when you activate it, and these special effects could be different.  -->
 
     <p> Here are two toys. Each toy does something different, and it is your job to figure out how they work. Press continue
+    below to get started with exploring the toys! <p> <!-- <b>Explore how the toys work by pressing the yellow and red buttons.</b>-->
+<!-- Emily, I think we just want the images of the two toys here without the buttons below them. Then we will add in the buttons
+on the exploratory play slides for each toy.-->
+    <div class="toy-div">
+      <table>
+        <tr>
+          <td id="toy-div-col1">
+            <img class="toy-div-img" id="unactivatedToyA" src="images/toys/unactivatedToyA.jpg"></img>
+          </td>
+          <td id="toy-div-col2">
+            <img class="toy-div-img" id="unactivatedToyB" src="images/toys/unactivatedToyB.jpg"></img>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- <img src="images/toys/unactivatedToys.png" width=800 alt="UNACTIVATEDTOYS"> </img>  -->
+
+   <!-- <p id="manipulation"> </p><br> -->
+  <button onclick="_s.button()">Continue</button></p>
+
+  </div>
+
+ <div class="slide" id="explore_toyA">
+    <!-- <p>Here are two toys. Each toy has a special effect when you activate it, and these special effects could be different.  -->
+
+    <p> Here is <b>Toy A.</b> Explore how Toy A works by clicking on the buttons below.<p> <!-- <b>Explore how the toys work by pressing the yellow and red buttons.</b>-->
+<!-- Emily, I think we just want the images of the two toys here without the buttons below them. Then we will add in the buttons
+on the exploratory play slides for each toy.-->
+    <!-- <div class="toy-div"> -->
+      <table>
+        <tr>
+          <td id="toy-div-col1">
+            <img class="toy-div-img" id="unactivatedToyA" src="images/toys/unactivatedToyA.jpg"></img>
+
+            <div class="toy-div-btn-panel">
+              <img class="toy-btn" id="redbtn" src="images/toys/redbutton.png" width=60>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- <img src="images/toys/unactivatedToys.png" width=800 alt="UNACTIVATEDTOYS"> </img>  -->
+
+   <!-- <p id="manipulation"> </p><br> -->
+  <button onclick="_s.button()">Continue</button></p>
+
+</div>
+  <div class="slide" id="single_trial">
+    <!-- <p>Here are two toys. Each toy has a special effect when you activate it, and these special effects could be different.  -->
+
+    <p> Here are two toys. Each toy does something different, and it is your job to figure out how they work.Press continue
     below to get started with exploring the toys! <p> <!-- <b>Explore how the toys work by pressing the yellow and red buttons.</b>-->
 <!-- Emily, I think we just want the images of the two toys here without the buttons below them. Then we will add in the buttons
 on the exploratory play slides for each toy.-->
@@ -124,6 +175,16 @@ on the exploratory play slides for each toy.-->
 
 	 <!-- <p id="manipulation"> </p><br> -->
   <button onclick="_s.button()">Continue</button></p>
+
+  </div>
+
+  <div class="slide"  id="catch_trial">
+    <p>Can you show me how Toy A works?</p>
+    <center><img width=400px height=300px src="images/toys/teachToyA.jpg"></img></center>
+    <p>Please type the corresponding button number that activates Toy A here:</p>
+    <input type="text" id="how_toyA_works"></input>
+    <div class="err">Please enter a button number before continuing.</div>
+    <button onclick="_s.button()">Continue</button></p>
 
   </div>
 
@@ -199,7 +260,10 @@ on the exploratory play slides for each toy.-->
       <center><img id="toy_taught_img" width=400px height=300px src="images/toys/teachToyA.jpg"></img></center>
       <textarea id="teach_explanation_response" rows="3" cols="50"></textarea>
       <br/>
+      <div class="err">Please type your response into the textbox before continuing.</div>
+
       <button onclick="_s.submit()">Continue</button>
+
 </div>
 
 <div class="slide" id="hard_choice">
@@ -209,14 +273,9 @@ on the exploratory play slides for each toy.-->
         <tr>
           <td id="toy-div-col1">
             <img class="toy-div-img" id="toyA" src="images/toys/teachToyA.jpg"></img>
-
-            <!-- <center><button class="teach-btn" onclick="_s.buttontoyA()">Teach Toy A</button></center> -->
-
           </td>
           <td id="toy-div-col2">
             <img class="toy-div-img" id="toyB" src="images/toys/teachToyB.jpg"></img>
-
-            <!-- <center><button class="teach-btn" onclick="_s.buttontoyB()">Teach Toy A</button></center> -->
           </td>
         </tr>
       </table>
@@ -225,10 +284,9 @@ on the exploratory play slides for each toy.-->
     <p class="prompt"></p>
     <table id="slider_table" class="slider_table">
       <tr><td class="left">Toy A</td><td class="right">Toy B</td></tr>
-      <tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
+      <tr><td colspan="2"><div id="hard_choice_slider" class="slider"></div></td></tr>
     </table>
-<!--     <button onclick="_s.button()">Continue</button>
- -->    <div class="err">Please adjust the slider before continuing.</div>
+        <div class="err">Please adjust the slider before continuing.</div>
          <button onclick="_s.button()">Continue</button>
 </div>
          
@@ -236,10 +294,22 @@ on the exploratory play slides for each toy.-->
   
  <div class="slide" id="cool_choice">
     <p>Which toy has the cooler effect?</p>
+     <div class="toy-div">
+      <table>
+        <tr>
+          <td id="toy-div-col1">
+            <img class="toy-div-img" id="toyA" src="images/toys/teachToyA.jpg"></img>
+          </td>
+          <td id="toy-div-col2">
+            <img class="toy-div-img" id="toyB" src="images/toys/teachToyB.jpg"></img>
+          </td>
+        </tr>
+      </table>
+    </div>
     <p class="prompt"></p>
     <table id="slider_table" class="slider_table">
       <tr><td class="left">Toy A</td><td class="right">Toy B</td></tr>
-      <tr><td colspan="2"><div id="single_slider" class="slider"></div></td></tr>
+      <tr><td colspan="2"><div id="cool_choice_slider" class="slider"></div></td></tr>
     </table>
     <button onclick="_s.button()">Continue</button>
     <div class="err">Please adjust the slider before continuing.</div>
