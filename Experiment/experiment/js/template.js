@@ -1,7 +1,5 @@
 $( document ).ready(function() {
     console.log( "ready!" );
-    var clickedToyA = false;
-    var clickedToyB = false;
     // decrease opacity 
     $(function(){
       $(".toy-btn").hover(function(){
@@ -11,28 +9,43 @@ $( document ).ready(function() {
       });
     });
 
-    $("#redbtn").click(function() {
-      if (clickedToyA) {
-        console.log("redbtn clicked, toy unactivated");
-        $("#unactivatedToyA").attr("src","images/toys/unactivatedToyA.jpg");
-        clickedToyA = false;
-      } else {
-        console.log("redbtn clicked, toy activated");
-        $("#unactivatedToyA").attr("src","images/toys/activatedToyA.jpg");
-        clickedToyA = true;
-      }
+    // $("#redbtn").click(function() {
+    //   if (clickedToyA) {
+    //     console.log("redbtn clicked, toy unactivated");
+    //     $("#unactivated-toyA").attr("src","images/toys/unactivatedToyA.jpg");
+    //     clickedToyA = false;
+    //   } else {
+    //     console.log("redbtn clicked, toy activated");
+    //     $("#unactivated-toyA").attr("src","images/toys/activatedToyA.jpg");
+    //     clickedToyA = true;
+    //   }
+    // });
+  $("#redbtn").click(function() {
+      console.log("redbtn clicked, toy activated");
+      $("#unactivated-toyA").attr("src","images/toys/activatedToyA.jpg");
+      setTimeout(function(){$("#unactivated-toyA").attr("src","images/toys/unactivatedToyA.jpg");},380);
+      exp.activatedToyA = true;
+      $(".err").hide();
     });
+
     $("#yellowbtn4").click(function() {
-      if (clickedToyB) {
-        console.log("yellowbtn clicked, toy unactivated");
-        $("#unactivatedToyB").attr("src","images/toys/unactivatedToyB.jpg");
-        clickedToyB = false;
-      } else {
-        console.log("yellowbtn clicked, toy activated");
-        $("#unactivatedToyB").attr("src","images/toys/activatedToyB.jpg");
-        clickedToyB = true;
-      }
+      console.log("yellowbtn clicked, toy activated");
+      $("#unactivated-toyB").attr("src","images/toys/activatedToyB.jpg");
+      setTimeout(function(){$("#unactivated-toyB").attr("src","images/toys/unactivatedToyB.jpg");},380);
+      exp.activatedToyB = true;
+      $(".err").hide();
     });
+    // $("#yellowbtn4").click(function() {
+    //   if (clickedToyB) {
+    //     console.log("yellowbtn clicked, toy unactivated");
+    //     $("#unactivatedToyB").attr("src","images/toys/unactivatedToyB.jpg");
+    //     clickedToyB = false;
+    //   } else {
+    //     console.log("yellowbtn clicked, toy activated");
+        // $("#unactivatedToyB").attr("src","images/toys/activatedToyB.jpg");
+    //     clickedToyB = true;
+    //   }
+    // });
 });
 
 
@@ -61,6 +74,7 @@ function make_slides(f) {
     }
   });
 
+
   slides.single_trial = slide({
     name : "single_trial",
     // start : function() {
@@ -72,22 +86,54 @@ function make_slides(f) {
     }
 
   });
-  slides.catch_trial =  slide({
-    name : "catch_trial",
+
+  slides.explore_toyA = slide({
+    name: "explore_toyA",
+    start : function() {
+      $(".err").hide();
+    },
+    button : function() {
+      if (exp.activatedToyA) {
+        exp.go();
+      } else {      
+        $(".err").show();
+        // $(".err").show();
+      }
+    }
+  });
+
+   slides.explore_toyB = slide({
+    name: "explore_toyB",
+    start : function() {
+      $(".err").hide();
+    },
+    button : function() {
+      if (exp.activatedToyB) {
+        exp.go();
+      } else {      
+        $(".err").show();
+      }
+    }
+  });
+
+  slides.single_trial = slide({
+    name : "single_trial",
+    // start : function() {
+      // might want the manipulation here, as well as a start time and end time to keep track of
+      // how long it takes for them to explore the toy
+    // }
+    button : function() {
+      exp.go();
+    }
+
+  });
+
+
+  slides.catch_trial_toyA =  slide({
+    name : "catch_trial_toyA",
     start: function() {
       $(".err").hide();
       this.startTime = Date.now();
-
-      // console.log(exp.condition);
-      // console.log(exp.toy_taught);
-      // if (exp.toy_taught == "toyA") {
-      //   console.log("Subject chose Toy A");
-      //   $("#toy_taught_img").attr("src","images/toys/teachToyA.jpg");
-      // } else {
-      //   console.log("Subject chose Toy B");
-      //   $("#toy_taught_img").attr("src","images/toys/teachToyB.jpg");
-      // }
-    
      },
     button : function(){
       //if (e.preventDefault) e.preventDefault(); // I don't know what this means.
@@ -95,17 +141,46 @@ function make_slides(f) {
       this.rt = (this.endTime - this.startTime)/1000;
       this.response = $("#how_toyA_works").val();
       // console.log(this.response)
-      if (this.response == "") {
-        console.log("No response given.")
-        $(".err").show();
-      } else {
+      if (this.response != '' && this.response > 0 && this.response <= 10) {
         exp.catch_trials.push({
+        "condition" : "catch_toyA",
         "response": this.response,
         "rt_in_seconds" : this.rt });
         exp.go(); //use exp.go() if and only if there is no "present" data.
+       
+      } else {
+        console.log("Bad response given.")
+        $(".err").show();
       }
     }
   });
+
+  slides.catch_trial_toyB =  slide({
+    name : "catch_trial_toyB",
+    start: function() {
+      $(".err").hide();
+      this.startTime = Date.now();
+     },
+    button : function(){
+      //if (e.preventDefault) e.preventDefault(); // I don't know what this means.
+      this.endTime = Date.now()
+      this.rt = (this.endTime - this.startTime)/1000;
+      this.response = $("#how_toyB_works").val();
+      // console.log(this.response)
+      if (this.response != '' && this.response > 0 && this.response <= 10) {
+        exp.catch_trials.push({
+        "condition" : "catch_toyB",
+        "response": this.response,
+        "rt_in_seconds" : this.rt });
+        exp.go(); //use exp.go() if and only if there is no "present" data.
+       
+      } else {
+        console.log("Bad response given.")
+        $(".err").show();
+      }
+    }
+  });
+
   slides.response_trial = slide({
     name: "response_trial",
     
@@ -406,10 +481,13 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=["i0", "instructions", "display_toys", "single_trial", "catch_trial", "response_trial", "teach_explanation", "hard_choice", "cool_choice", 'subj_info', 'thanks'];
+  exp.structure=["i0", "instructions", "display_toys", "explore_toyA", "catch_trial_toyA", "explore_toyB","catch_trial_toyB", "response_trial", "teach_explanation", "hard_choice", "cool_choice", 'subj_info', 'thanks'];
   // exp.structure=["i0", "instructions", "single_trial", "response_trial", "teach_explanation", 'subj_info', 'thanks'];
   exp.toy_taught = "";
-  
+
+  // following variables keep track of whether subject accurately activateed toy A and B
+  exp.activatedToyA = false;
+  exp.activatedToyB = false;
   exp.data_trials = [];
   //make corresponding slides:
   exp.slides = make_slides(exp);
