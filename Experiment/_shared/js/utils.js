@@ -52,6 +52,7 @@ var utils = {
 	},
 
 	make_slider: function(label, response_callback) {
+		console.log("utils.js: Making slider")
 		$(label).empty();
 		$(label).slider({
 			range : "min",
