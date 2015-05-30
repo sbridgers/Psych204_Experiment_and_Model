@@ -1,10 +1,7 @@
 #Computational Model of Efficient Teaching
 
 ##Here we define a model of a teacher and learner. 
-###The learner is reasoning about how to activate two toys (ToyA and ToyB). The learner's goal is to activate both toys and observe
-###the effects each produces. The teacher's goal is to teach one toy and let the learner figure out
-###the other on her own such that she maximizes the probability that learner gets to see the effects
-###of both toys (i.e., successfully activates both toys).
+###The learner is reasoning about how to activate two toys (ToyA and ToyB). The learner's goal is to activate both toys and observe the effects each produces. The teacher's goal is to teach one toy and let the learner figure out the other on her own such that she maximizes the probability that learner gets to see the effects of both toys (i.e., successfully activates both toys).
 
 ~~~~ 
 
