@@ -109,6 +109,62 @@ div#single_trial
     -moz-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
+div#explore_toyA
+{
+	overflow: scroll;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+
+::-moz-scrollbar {
+	-moz-appearance: none;
+    width: 7px;	
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+::-moz-scrollbar-thumb {
+	border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -moz-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+div#explore_toyB
+{
+	overflow: scroll;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+
+::-moz-scrollbar {
+	-moz-appearance: none;
+    width: 7px;	
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+::-moz-scrollbar-thumb {
+	border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -moz-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+
+
 div#color_check
 {
 	overflow: scroll;
