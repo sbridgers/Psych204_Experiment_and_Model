@@ -148,7 +148,13 @@ div#color_check
     margin-left: auto;
     margin-right: auto;
 }
-#toy-div-col {
+
+#yellowbtn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.toy-div-col {
     width: 400px;
     height: 250px;
     /*height: ;*/

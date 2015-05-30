@@ -1,3 +1,57 @@
+$( document ).ready(function() {
+    console.log( "ready!" );
+    // decrease opacity 
+    $(function(){
+      $(".toy-btn").hover(function(){
+          $( this ).css({"opacity": ".6"});
+      },function(){
+          $( this ).css({"opacity": "1"});
+      });
+    });
+
+    // $("#redbtn").click(function() {
+    //   if (clickedToyA) {
+    //     console.log("redbtn clicked, toy unactivated");
+    //     $("#unactivated-toyA").attr("src","images/toys/unactivatedToyA.jpg");
+    //     clickedToyA = false;
+    //   } else {
+    //     console.log("redbtn clicked, toy activated");
+    //     $("#unactivated-toyA").attr("src","images/toys/activatedToyA.jpg");
+    //     clickedToyA = true;
+    //   }
+    // });
+  $("#redbtn").click(function() {
+      console.log("redbtn clicked, toy activated");
+      $("#unactivated-toyA").attr("src","images/toys/activatedToyA.jpg");
+      setTimeout(function(){$("#unactivated-toyA").attr("src","images/toys/unactivatedToyA.jpg");},380);
+      exp.activatedToyA = true;
+      $(".err").hide();
+    });
+
+    $("#yellowbtn4").click(function() {
+      console.log("yellowbtn clicked, toy activated");
+      $("#unactivated-toyB").attr("src","images/toys/activatedToyB.jpg");
+      setTimeout(function(){$("#unactivated-toyB").attr("src","images/toys/unactivatedToyB.jpg");},380);
+      exp.activatedToyB = true;
+      $(".err").hide();
+    });
+    // $("#yellowbtn4").click(function() {
+    //   if (clickedToyB) {
+    //     console.log("yellowbtn clicked, toy unactivated");
+    //     $("#unactivatedToyB").attr("src","images/toys/unactivatedToyB.jpg");
+    //     clickedToyB = false;
+    //   } else {
+    //     console.log("yellowbtn clicked, toy activated");
+        // $("#unactivatedToyB").attr("src","images/toys/activatedToyB.jpg");
+    //     clickedToyB = true;
+    //   }
+    // });
+});
+
+function init_lowCostButtons(){
+
+}
+
 function make_slides(f) {
   var   slides = {};
 
@@ -17,42 +71,46 @@ function make_slides(f) {
 
   slides.display_toys = slide({
     name : "display_toys",
-    start : function() {
-      $("#display_ToyA").attr("src",exp.unactivatedToyA_img);
-      $("#display_ToyB").attr("src",exp.unactivatedToyB_img);
-      console.log(exp.unactivatedToyA_img);
-      console.log(exp.unactivatedToyB_img);
-    },
     button : function() {
       exp.go();
     }
+  });
+
+
+  slides.single_trial = slide({
+    name : "single_trial",
+    // start : function() {
+      // might want the manipulation here, as well as a start time and end time to keep track of
+      // how long it takes for them to explore the toy
+    // }
+    button : function() {
+      exp.go();
+    }
+
   });
 
   slides.explore_toyA = slide({
     name: "explore_toyA",
     start : function() {
       $(".err").hide();
-      this.startTime = Date.now();
-
-      $("#unactivated_ToyA").attr("src",exp.unactivatedToyA_img);
-      if (exp.conditionToyA[0] == 'L') {
-        init_lowCostButtonToyA();
-        init_buttonstyle();
-        init_lowCostButtonClickToyA();
-      } else {
-        init_highCostButtonsToyA();
-        init_buttonstyle();
-        init_highCostButtonClickToyA();
-      }
     },
     button : function() {
       if (exp.activatedToyA) {
-        this.endTime = Date.now()
-        this.rt = (this.endTime - this.startTime)/1000;
-        exp.data_trials.push({
-        "trial_type" : "explore_ToyA",
-        "rt_in_seconds": this.rt
-        });
+        exp.go();
+      } else {      
+        $(".err").show();
+        // $(".err").show();
+      }
+    }
+  });
+
+   slides.explore_toyB = slide({
+    name: "explore_toyB",
+    start : function() {
+      $(".err").hide();
+    },
+    button : function() {
+      if (exp.activatedToyB) {
         exp.go();
       } else {      
         $(".err").show();
@@ -60,20 +118,27 @@ function make_slides(f) {
     }
   });
 
+  slides.single_trial = slide({
+    name : "single_trial",
+    // start : function() {
+      // might want the manipulation here, as well as a start time and end time to keep track of
+      // how long it takes for them to explore the toy
+    // }
+    button : function() {
+      exp.go();
+    }
+
+  });
+
+
   slides.catch_trial_toyA =  slide({
     name : "catch_trial_toyA",
     start: function() {
       $(".err").hide();
       this.startTime = Date.now();
-      $("#catch_ToyA").attr("src",exp.unactivatedToyA_img);
-      if (exp.conditionToyA[0] == 'L') {
-        init_catchLowCostButtonsToyA();
-      } else {
-        init_catchHighCostButtonsToyA();
-      }
-
      },
     button : function(){
+      //if (e.preventDefault) e.preventDefault(); // I don't know what this means.
       this.endTime = Date.now()
       this.rt = (this.endTime - this.startTime)/1000;
       this.response = $("#how_toyA_works").val();
@@ -86,39 +151,7 @@ function make_slides(f) {
         exp.go(); //use exp.go() if and only if there is no "present" data.
        
       } else {
-        console.log("Catch trial: bad response given.")
-        $(".err").show();
-      }
-    }
-  });
-
-   slides.explore_toyB = slide({
-    name: "explore_toyB",
-    start : function() {
-      $(".err").hide();
-      this.startTime = Date.now();
-
-      $("#unactivated_ToyB").attr("src",exp.unactivatedToyB_img);
-      if (exp.conditionToyB[0] == 'L') {
-        init_lowCostButtonToyB();
-        init_buttonstyle();
-        init_lowCostButtonClickToyB();
-      } else {
-        init_highCostButtonsToyB();
-        init_buttonstyle();
-        init_highCostButtonClickToyB();
-      }
-    },
-    button : function() {
-      if (exp.activatedToyB) {
-        this.endTime = Date.now()
-        this.rt = (this.endTime - this.startTime)/1000;
-        exp.data_trials.push({
-        "trial_type" : "explore_ToyB",
-        "rt_in_seconds": this.rt
-        });
-        exp.go();
-      } else {      
+        console.log("Bad response given.")
         $(".err").show();
       }
     }
@@ -129,18 +162,13 @@ function make_slides(f) {
     start: function() {
       $(".err").hide();
       this.startTime = Date.now();
-      $("#catch_ToyB").attr("src",exp.unactivatedToyB_img);
-      if (exp.conditionToyB[0] == 'L') {
-        init_catchLowCostButtonsToyB();
-      } else {
-        init_catchHighCostButtonsToyB();
-      }
-
      },
     button : function(){
+      //if (e.preventDefault) e.preventDefault(); // I don't know what this means.
       this.endTime = Date.now()
       this.rt = (this.endTime - this.startTime)/1000;
       this.response = $("#how_toyB_works").val();
+      // console.log(this.response)
       if (this.response != '' && this.response > 0 && this.response <= 10) {
         exp.catch_trials.push({
         "condition" : "catch_toyB",
@@ -155,7 +183,6 @@ function make_slides(f) {
     }
   });
 
-  // Response is 2AFC
   slides.response_trial = slide({
     name: "response_trial",
     
@@ -163,12 +190,26 @@ function make_slides(f) {
       $(".err").hide();
       $(".err2").hide();
       this.startTime = Date.now();
-      $("#choose_ToyA").attr("src",exp.activatedToyA_img);
-      $("#choose_ToyB").attr("src",exp.activatedToyB_img);
       // $("#manipulation").html("Manipulation: toys are <b>" + exp.condition + "</b>.");
     },
     
     buttonToyA : function() {
+      // response_red = $("#text_response_red").val();
+      // response_green = $("#text_response_green").val();
+      // response_purple = $("#text_response_purple").val();
+      // response_blue = $("#text_response_blue").val();
+
+      // if ($("#text_response_red").val().length == 0 || $("#text_response_green").val().length == 0 || 
+      // $("#text_response_purple").val().length == 0 || $("#text_response_blue").val().length == 0) {
+      //   $(".err").show();
+      // } else {
+      // if (!(($("#text_response_red").val()!='' && $("#text_response_red").val()>=0 && $("#text_response_red").val()<=100) &&
+      // ($("#text_response_green").val()!='' && $("#text_response_green").val()>=0 && $("#text_response_green").val()<=100) &&
+      // ($("#text_response_purple").val()!='' && $("#text_response_purple").val()>=0 && $("#text_response_purple").val()<=100) &&
+      // ($("#text_response_blue").val()!='' && $("#text_response_blue").val()>=0 && $("#text_response_blue").val()<=100))) {
+      //   $(".err2").show();
+      //   $(".err").hide();
+      // } else {
       	 this.endTime = Date.now()
       	 this.rt = (this.endTime - this.startTime)/1000;
         exp.data_trials.push({
@@ -180,8 +221,24 @@ function make_slides(f) {
         exp.go(); //make sure this is at the *end*, after you log your data
     },
     buttonToyB : function() {
-        this.endTime = Date.now()
-        this.rt = (this.endTime - this.startTime)/1000;
+      // response_red = $("#text_response_red").val();
+      // response_green = $("#text_response_green").val();
+      // response_purple = $("#text_response_purple").val();
+      // response_blue = $("#text_response_blue").val();
+
+      // if ($("#text_response_red").val().length == 0 || $("#text_response_green").val().length == 0 || 
+      // $("#text_response_purple").val().length == 0 || $("#text_response_blue").val().length == 0) {
+      //   $(".err").show();
+      // } else {
+      // if (!(($("#text_response_red").val()!='' && $("#text_response_red").val()>=0 && $("#text_response_red").val()<=100) &&
+      // ($("#text_response_green").val()!='' && $("#text_response_green").val()>=0 && $("#text_response_green").val()<=100) &&
+      // ($("#text_response_purple").val()!='' && $("#text_response_purple").val()>=0 && $("#text_response_purple").val()<=100) &&
+      // ($("#text_response_blue").val()!='' && $("#text_response_blue").val()>=0 && $("#text_response_blue").val()<=100))) {
+      //   $(".err2").show();
+      //   $(".err").hide();
+      // } else {
+         this.endTime = Date.now()
+         this.rt = (this.endTime - this.startTime)/1000;
         exp.data_trials.push({
           "trial_type" : "subject_responses",
           "response" : "toyB",
@@ -193,23 +250,69 @@ function make_slides(f) {
     },
   });
 
+// slides.color_check = slide({
+// 	name: "color_check",
+// 	start: function () {
+// 		$(".err3").hide();
+// 	},
+// 	button : function() {
+	
+// 	response_color_red = $("#text_response_color_red").val();
+// 	response_color_green = $("#text_response_color_green").val();
+// 	response_color_purple = $("#text_response_color_purple").val();
+// 	response_color_blue = $("#text_response_color_blue").val();
+// 	debugger;
+
+// 	if (($("#text_response_color_red").val().length == 0 || isNaN($("#text_response_color_red").val()) == false) || 
+// 	($("#text_response_color_green").val().length == 0 || isNaN($("#text_response_color_green").val()) == false) || 
+//       ($("#text_response_color_purple").val().length == 0 || isNaN($("#text_response_color_purple").val()) == false) || 
+//       ($("#text_response_color_blue").val().length == 0 || isNaN($("#text_response_color_blue").val()) == false)) {
+//         $(".err3").show();
+//         } else {
+//         exp.data_trials.push({
+//           "trial_type" : "color_check",
+//           "response_color_red" : response_color_red,
+//           "response_color_green" : response_color_green,
+//           "response_color_purple" : response_color_purple,
+//           "response_color_blue" : response_color_blue  
+//         });
+//         exp.go(); //make sure this is at the *end*, after you log your data
+//       }
+//     },
+//   });
 slides.confidence_level = slide({
     name : "confidence_level",
 
+    /* trial information for this block
+     (the variable 'stim' will change between each of these values,
+      and for each of these, present_handle will be run.) */
+    //present : [
+      //{subject: "dog", object: "ball"},
+      //{subject: "cat", object: "windowsill"},
+      //{subject: "bird", object: "shiny object"},
+   // ],
+
+    //this gets run only at the beginning of the block
    start : function(stim) {
-      $(".err").hide();
-      this.startTime = Date.now();
+     $(".err").hide();
+    this.startTime = Date.now();
+
+
+      // this.stim = stim; //I like to store this information in the slide so I can record it later.
+
+
+      //$(".prompt").html(stim.subject + "s like " + stim.object + "s.");
       var prompt = "How confident are you in your choice to teach " + exp.toy_taught + "?";
       $("#conf_prompt").text(prompt);
       if (exp.toy_taught == "Toy A") {
         console.log("Subject chose Toy A");
-        $("#confidence_img").attr("src",exp.teachToyA_img);
+        $("#confidence_img").attr("src","images/toys/teachToyA.jpg");
       } else {
         console.log("Subject chose Toy B");
-        $("#confidence_img").attr("src",exp.teachToyB_img);
+        $("#toy_taught_img").attr("src","images/toys/teachToyB.jpg");
       }
       this.init_sliders();
-        exp.sliderPost = null; //erase current slider value
+      exp.sliderPost = null; //erase current slider value
     },
 
     button : function() {
@@ -235,7 +338,7 @@ slides.confidence_level = slide({
       this.endTime = Date.now()
       this.rt = (this.endTime - this.startTime)/1000;
       exp.data_trials.push({
-        "trial_type" : "confidence_level",
+        "trial_type" : "cool_choice",
         "response" : exp.sliderPost,
         "rt_in_seconds": this.rt
       });
@@ -251,10 +354,10 @@ slides.teach_explanation =  slide({
       console.log(exp.toy_taught);
       if (exp.toy_taught == "Toy A") {
         console.log("Subject chose Toy A");
-        $("#toy_taught_img").attr("src",exp.teachToyA_img);
+        $("#toy_taught_img").attr("src","images/toys/teachToyA.jpg");
       } else {
         console.log("Subject chose Toy B");
-        $("#toy_taught_img").attr("src",exp.teachToyB_img);
+        $("#toy_taught_img").attr("src","images/toys/teachToyB.jpg");
       }
     
      },
@@ -279,12 +382,24 @@ slides.teach_explanation =  slide({
  slides.hard_choice = slide({
     name : "hard_choice",
 
-    start : function() {
-    $(".err").hide();
-    this.startTime = Date.now();      
-    $("#hardchoice_ToyA").attr("src",exp.activatedToyA_img);
-    $("#hardchoice_ToyB").attr("src",exp.activatedToyB_img);
+    /* trial information for this block
+     (the variable 'stim' will change between each of these values,
+      and for each of these, present_handle will be run.) */
+    //present : [
+      //{subject: "dog", object: "ball"},
+      //{subject: "cat", object: "windowsill"},
+      //{subject: "bird", object: "shiny object"},
+   // ],
 
+    //this gets run only at the beginning of the block
+    start : function() {
+     $(".err").hide();
+    this.startTime = Date.now();
+
+      // this.stim = stim; //I like to store this information in the slide so I can record it later.
+
+
+      //$(".prompt").html(stim.subject + "s like " + stim.object + "s.");
       this.init_sliders();
       exp.sliderPost = null; //erase current slider value
     },
@@ -321,11 +436,25 @@ slides.teach_explanation =  slide({
   
    slides.cool_choice = slide({
     name : "cool_choice",
+
+    /* trial information for this block
+     (the variable 'stim' will change between each of these values,
+      and for each of these, present_handle will be run.) */
+    //present : [
+      //{subject: "dog", object: "ball"},
+      //{subject: "cat", object: "windowsill"},
+      //{subject: "bird", object: "shiny object"},
+   // ],
+
+    //this gets run only at the beginning of the block
    start : function(stim) {
      $(".err").hide();
     this.startTime = Date.now();
-    $("#coolchoice_ToyA").attr("src",exp.activatedToyA_img);
-    $("#coolchoice_ToyB").attr("src",exp.activatedToyB_img);
+
+      // this.stim = stim; //I like to store this information in the slide so I can record it later.
+
+
+      //$(".prompt").html(stim.subject + "s like " + stim.object + "s.");
       this.init_sliders();
       exp.sliderPost = null; //erase current slider value
     },
@@ -401,87 +530,6 @@ slides.teach_explanation =  slide({
   return slides;
 }
 
-function init_buttonstyle(){
-  $(".toy-btn").hover(function(){
-      $( this ).css({"opacity": ".6"});
-  },function(){
-      $( this ).css({"opacity": "1"});
-  });
-}
-
-function init_lowCostButtonClickToyA(){
- $("#redbtn").click(function() {
-    console.log("redbtn clicked, toy activated");
-    $("#unactivated_ToyA").attr("src",exp.activatedToyA_img);
-    setTimeout(function(){$("#unactivated_ToyA").attr("src",exp.unactivatedToyA_img);},380);
-    exp.activatedToyA = true;
-    $(".err").hide();
-  });
-}
-function init_lowCostButtonClickToyB(){
- $("#yellowbtn").click(function() {
-    console.log("yellow btn clicked, toy activated");
-    $("#unactivated_ToyB").attr("src",exp.activatedToyB_img);
-    setTimeout(function(){$("#unactivated_ToyB").attr("src",exp.unactivatedToyB_img);},380);
-    exp.activatedToyB = true;
-    $(".err").hide();
-  });
-}
-
-function init_catchLowCostButtonsToyA() {
-  console.log("initialize catch trial lc buttons for Toy A");
-  $("#catch_ToyA_div").html("<img src='images/toys/redbutton1.png' width=50>");
-}
-function init_catchHighCostButtonsToyA() {
-  console.log("initialize catch trial hc buttons for Toy A");
-  $("#catch_ToyA_div").html("<div class='toy-div-btn-panel'><table><tr><td><img src='images/toys/redbutton1.png' width=50></td><td><img src='images/toys/redbutton2.png' width=50></td><td><img src='images/toys/redbutton3.png' width=50></td><td><img src='images/toys/redbutton4.png' width=50></td><td><img src='images/toys/redbutton5.png' width=50></td></tr><tr><td><img src='images/toys/redbutton6.png' width=50></td><td><img src='images/toys/redbutton7.png' width=50></td><td><img src='images/toys/redbutton8.png' width=50></td><td><img src='images/toys/redbutton9.png' width=50></td><td><img src='images/toys/redbutton10.png' width=50></td></tr></table></div>");
-}
-function init_catchLowCostButtonsToyB() {
-  console.log("initialize catch trial lc buttons for Toy B");
-  $("#catch_ToyB_div").html("<img src='images/toys/yellowbutton1.png' width=50>");
-}
-
-function init_catchHighCostButtonsToyB() {
-  console.log("initialize catch trial hc buttons for Toy B");
-  $("#catch_ToyB_div").html("<div class='toy-div-btn-panel'><table><tr><td><img src='images/toys/yellowbutton1.png' width=50></td><td><img src='images/toys/yellowbutton2.png' width=50></td><td><img src='images/toys/yellowbutton3.png' width=50></td><td><img src='images/toys/yellowbutton4.png' width=50></td><td><img src='images/toys/yellowbutton5.png' width=50></td></tr><tr><td><img src='images/toys/yellowbutton6.png' width=50></td><td><img src='images/toys/yellowbutton7.png' width=50></td><td><img src='images/toys/yellowbutton8.png' width=50></td><td><img src='images/toys/yellowbutton9.png' width=50></td><td><img src='images/toys/yellowbutton10.png' width=50></td></tr></table></div>");
-}
-
-function init_lowCostButtonToyA() {
-  console.log("initializing low cost button for Toy A");
-  $("#explore_ToyA_div").html("<img class='toy-btn' id='redbtn' src='images/toys/redbutton.png' width=50>");
-}
-function init_lowCostButtonToyB() {
-  console.log("initializing low cost button for Toy B");
-  $("#explore_ToyB_div").html("<img class='toy-btn' id='yellowbtn' src='images/toys/yellowbutton.png' width=50>");
-}
-
-function init_highCostButtonClickToyB() {
-    $("#yellowbtn4").click(function() {
-    console.log("yellowbtn clicked, toy activated");
-    $("#unactivated_ToyB").attr("src",exp.activatedToyB_img);
-    setTimeout(function(){$("#unactivated_ToyB").attr("src",exp.unactivatedToyB_img);},380);
-    exp.activatedToyB = true;
-    $(".err").hide();
-  });
-}
-function init_highCostButtonClickToyA() {
-  $("#redbtn4").click(function() {
-    console.log("redbtn clicked, toy activated");
-    $("#unactivated_ToyA").attr("src",exp.activatedToyA_img);
-    setTimeout(function(){$("#unactivated_ToyA").attr("src",exp.unactivatedToyA_img);},380);
-    exp.activatedToyA= true;
-    $(".err").hide();
-  });
-}
-
-function init_highCostButtonsToyB() {
-  console.log("initializing hc buttons for Toy B");
-  $("#explore_ToyB_div").html("<div class='toy-div-btn-panel'><table><tr><td><img class='toy-btn' id='yellowbtn1' src='images/toys/yellowbutton.png' width=50></td><td><img class='toy-btn' id='yellowbtn2' src='images/toys/yellowbutton.png' width=50></td><td><img class='toy-btn' id='yellowbtn3' src='images/toys/yellowbutton.png' width=50></td><td><img class='toy-btn' id='yellowbtn4' src='images/toys/yellowbutton.png' width=50></td><td><img class='toy-btn' id='yellowbtn5' src='images/toys/yellowbutton.png' width=50></td></tr><tr><td><img class='toy-btn' id='yellowbtn6' src='images/toys/yellowbutton.png' width=50></td><td><img class='toy-btn' id='yellowbtn7' src='images/toys/yellowbutton.png' width=50></td><td><img class='toy-btn' id='yellowbtn8' src='images/toys/yellowbutton.png' width=50></td><td><img class='toy-btn' id='yellowbtn9' src='images/toys/yellowbutton.png' width=50></td><td><img class='toy-btn' id='yellowbtn10' src='images/toys/yellowbutton.png' width=50></td></tr></table></div>");
-}
-function init_highCostButtonsToyA() {
-  console.log("initializing hc buttons for Toy A");
-  $("#explore_ToyA_div").html("<div class='toy-div-btn-panel'><table><tr><td><img class='toy-btn' id='redbtn1' src='images/toys/redbutton.png' width=50></td><td><img class='toy-btn' id='redbtn2' src='images/toys/redbutton.png' width=50></td><td><img class='toy-btn' id='redbtn3' src='images/toys/redbutton.png' width=50></td><td><img class='toy-btn' id='redbtn4' src='images/toys/redbutton.png' width=50></td><td><img class='toy-btn' id='redbtn5' src='images/toys/redbutton.png' width=50></td></tr><tr><td><img class='toy-btn' id='redbtn6' src='images/toys/redbutton.png' width=50></td><td><img class='toy-btn' id='redbtn7' src='images/toys/redbutton.png' width=50></td><td><img class='toy-btn' id='redbtn8' src='images/toys/redbutton.png' width=50></td><td><img class='toy-btn' id='redbtn9' src='images/toys/redbutton.png' width=50></td><td><img class='toy-btn' id='redbtn10' src='images/toys/redbutton.png' width=50></td></tr></table></div>");
-}
 /// init ///
 function init() {
   exp.trials = [];
@@ -502,20 +550,8 @@ function init() {
 // teachactivatedLCLVToyB
 // teachunactivatedLCLVToyB
 
-  // exp.condition = "LCHV_HCLV"; 
-  exp.condition = _.sample(["LCLV_LCLV", "LCHV_LCLV", "LCLV_HCLV", "LCLV_HCHV", "LCHV_HCLV"]);
-  console.log(exp.condition)
-  var res = exp.condition.split("_");
-  exp.conditionToyA = res[0];
-  exp.conditionToyB = res[1];
-  exp.unactivatedToyA_img = "makeToysallConditions_images/"+exp.condition+"/unactivated"+exp.conditionToyA+"ToyA.jpg";
-  exp.unactivatedToyB_img = "makeToysallConditions_images/"+exp.condition+"/unactivated"+exp.conditionToyB+"ToyB.jpg";
-  exp.activatedToyA_img = "makeToysallConditions_images/"+exp.condition+"/activated"+exp.conditionToyA+"ToyA.jpg";
-  exp.activatedToyB_img = "makeToysallConditions_images/"+exp.condition+"/activated"+exp.conditionToyB+"ToyB.jpg";
-  exp.teachToyA_img = "makeToysallConditions_images/"+exp.condition+"/teachactivated"+exp.conditionToyA+"ToyA.jpg";
-  exp.teachToyB_img = "makeToysallConditions_images/"+exp.condition+"/teachactivated"+exp.conditionToyB+"ToyB.jpg";
-
-
+  // exp.condition = "lowcosthighvaltoyA_highcostlowvaltoyB"; // lchvToyA_hclvToyB
+  exp.condition = "LCHV_LCLV";
   // exp.condition = _.sample(["eqc_uneqv", "hclv_lchv"])
   // exp.condition = _.sample(["the red", "the purple", "another"]); //can randomize between subject conditions here
   exp.system = {

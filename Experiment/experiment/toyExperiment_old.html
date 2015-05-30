@@ -67,11 +67,11 @@ on the exploratory play slides for each toy.-->
     <div class="toy-div">
       <table>
         <tr>
-          <td class="toy-div-col1">
-            <img class="toy-div-img" id="display_ToyA" src="images/toys/unactivatedToyA.jpg"></img>
+          <td id="toy-div-col1">
+            <img class="toy-div-img" id="unactivatedToyA" src="images/toys/unactivatedToyA.jpg"></img>
           </td>
-          <td class="toy-div-col2">
-            <img class="toy-div-img" id="display_ToyB" src="images/toys/unactivatedToyB.jpg"></img>
+          <td id="toy-div-col2">
+            <img class="toy-div-img" id="unactivatedToyB" src="images/toys/unactivatedToyB.jpg"></img>
           </td>
         </tr>
       </table>
@@ -88,9 +88,10 @@ on the exploratory play slides for each toy.-->
       <table>
         <tr>
           <td class="toy-div-col">
-            <img class="toy-div-img" id="unactivated_ToyA" src="images/toys/unactivatedToyA.jpg"></img>
-            <div id="explore_ToyA_div">
-            </div>
+            <img class="toy-div-img" id="unactivated-toyA" src="images/toys/unactivatedToyA.jpg"></img>
+            <div class="toy-div-btn-panel">
+            <img class="toy-btn" id="redbtn" src="images/toys/redbutton.png" width=50>
+          </div>
           </td>
         </tr>
       </table>
@@ -101,13 +102,11 @@ on the exploratory play slides for each toy.-->
 </div>
   <div class="slide"  id="catch_trial_toyA">
     <p>Can you show me how Toy A works?</p>
-    <center><img width=400px height=300px id="catch_ToyA" src="images/toys/teachToyA.jpg"></img></center>
-      <div id="catch_ToyA_div">
-<!--     <img src="images/toys/redbutton1.png" width=50>
- -->  </div>
+    <center><img width=400px height=300px src="images/toys/teachToyA.jpg"></img></center>
+    <img src="images/toys/redbutton1.png" width=50>
     <!-- <p>Please type the corresponding button number that activates Toy A here:</p> -->
     <!-- <p class="label">Please type the button number that activates Toy A here:</p> -->
-    <br><table>
+    <br><br><table>
       <tr>
         <td><p class="prompt_text">Please type the button number that activates Toy A here:</p></td>
         <td><input type="text" class="button_input" id="how_toyA_works"></input></td>
@@ -124,8 +123,44 @@ on the exploratory play slides for each toy.-->
       <table>
         <tr>
           <td class="toy-div-col">
-            <img class="toy-div-img" id="unactivated_ToyB" src="images/toys/unactivatedToyB.jpg"></img>
-            <div id="explore_ToyB_div">
+            <img class="toy-div-img" id="unactivated-toyB" src="images/toys/unactivatedToyB.jpg"></img>
+              <div class="toy-div-btn-panel">
+              <table>
+                <tr>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn1" src="images/toys/yellowbutton.png" width=50>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn2" src="images/toys/yellowbutton.png" width=50>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn3" src="images/toys/yellowbutton.png" width=50>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn4" src="images/toys/yellowbutton.png" width=50>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn5" src="images/toys/yellowbutton.png" width=50>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn6" src="images/toys/yellowbutton.png" width=50>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn7" src="images/toys/yellowbutton.png" width=50>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn8" src="images/toys/yellowbutton.png" width=50>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn9" src="images/toys/yellowbutton.png" width=50>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn10" src="images/toys/yellowbutton.png" width=50>
+                  </td>
+               </tr>
+              </table>
             </div>
           </td>
         </tr>
@@ -137,9 +172,45 @@ on the exploratory play slides for each toy.-->
 </div>
   <div class="slide"  id="catch_trial_toyB">
     <p>Can you show me how Toy B works?</p>
-    <center><img width=400px height=300px id="catch_ToyB" src="images/toys/teachToyB.jpg"></img></center>
-      <div id="catch_ToyB_div">
-      </div>
+    <center><img width=400px height=300px src="images/toys/teachToyB.jpg"></img></center>
+    <div class="toy-div-btn-panel">
+              <table>
+                <tr>
+                  <td>
+                    <img src="images/toys/yellowbutton1.png" width=50>
+                  </td>
+                  <td>
+                    <img src="images/toys/yellowbutton2.png" width=50>
+                  </td>
+                  <td>
+                    <img src="images/toys/yellowbutton3.png" width=50>
+                  </td>
+                  <td>
+                    <img src="images/toys/yellowbutton4.png" width=50>
+                  </td>
+                  <td>
+                    <img src="images/toys/yellowbutton5.png" width=50>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                    <img src="images/toys/yellowbutton6.png" width=50>
+                  </td>
+                  <td>
+                    <img src="images/toys/yellowbutton7.png" width=50>
+                  </td>
+                  <td>
+                    <img src="images/toys/yellowbutton8.png" width=50>
+                  </td>
+                  <td>
+                    <img src="images/toys/yellowbutton9.png" width=50>
+                  </td>
+                  <td>
+                    <img src="images/toys/yellowbutton10.png" width=50>
+                  </td>
+               </tr>
+              </table>
+            </div>
     <br><table>
       <tr>
         <td><p class="prompt_text">Please type the button number that activates Toy B here:</p></td>
@@ -148,6 +219,76 @@ on the exploratory play slides for each toy.-->
     </table><br>
       <button onclick="_s.button()">Continue</button>
     <div class="err">Please enter a button number before continuing.</div>
+
+  </div>
+
+  <div class="slide" id="single_trial">
+    <!-- <p>Here are two toys. Each toy has a special effect when you activate it, and these special effects could be different.  -->
+
+    <p> Here are two toys. Each toy does something different, and it is your job to figure out how they work.Press continue
+    below to get started with exploring the toys! <p> <!-- <b>Explore how the toys work by pressing the yellow and red buttons.</b>-->
+<!-- Emily, I think we just want the images of the two toys here without the buttons below them. Then we will add in the buttons
+on the exploratory play slides for each toy.-->
+    <div class="toy-div">
+      <table>
+        <tr>
+          <td id="toy-div-col1">
+            <img class="toy-div-img" id="unactivatedToyA" src="images/toys/unactivatedToyA.jpg"></img>
+
+            <div class="toy-div-btn-panel">
+             
+              <img class="toy-btn" id="redbtn" src="images/toys/redbutton.png" width=60>
+            </div>
+          </td>
+          <td id="toy-div-col2">
+            <img class="toy-div-img" id="unactivatedToyB" src="images/toys/unactivatedToyB.jpg"></img>
+
+            <div class="toy-div-btn-panel">
+              <table>
+                <tr>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn1" src="images/toys/yellowbutton1.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn2" src="images/toys/yellowbutton2.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn3" src="images/toys/yellowbutton3.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn4" src="images/toys/yellowbutton4.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn5" src="images/toys/yellowbutton5.png" width=60>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn6" src="images/toys/yellowbutton6.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn7" src="images/toys/yellowbutton7.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn8" src="images/toys/yellowbutton8.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn9" src="images/toys/yellowbutton9.png" width=60>
+                  </td>
+                  <td>
+                    <img class="toy-btn" id="yellowbtn10" src="images/toys/yellowbutton10.png" width=60>
+                  </td>
+               </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- <img src="images/toys/unactivatedToys.png" width=800 alt="UNACTIVATEDTOYS"> </img>  -->
+
+	 <!-- <p id="manipulation"> </p><br> -->
+  <button onclick="_s.button()">Continue</button></p>
 
   </div>
 
@@ -166,15 +307,15 @@ on the exploratory play slides for each toy.-->
     <div class="toy-div">
       <table>
         <tr>
-          <td class="toy-div-col1">
-            <img class="toy-div-img" id="choose_ToyA" src="images/toys/teachToyA.jpg"></img>
+          <td id="toy-div-col1">
+            <img class="toy-div-img" id="toyA" src="images/toys/teachToyA.jpg"></img>
             <center><a href="#" class="teach-btn" onclick="_s.buttonToyA()">Teach Toy A</a></center>
 
             <!-- <center><button class="teach-btn" onclick="_s.buttontoyA()">Teach Toy A</button></center> -->
 
           </td>
-          <td class="toy-div-col2">
-            <img class="toy-div-img" id="choose_ToyB" src="images/toys/teachToyB.jpg"></img>
+          <td id="toy-div-col2">
+            <img class="toy-div-img" id="toyB" src="images/toys/teachToyB.jpg"></img>
             <center><a href="#" class="teach-btn" onclick="_s.buttonToyB()">Teach Toy B</a></center>
 
             <!-- <center><button class="teach-btn" onclick="_s.buttontoyB()">Teach Toy A</button></center> -->
@@ -247,11 +388,11 @@ on the exploratory play slides for each toy.-->
      <div class="toy-div">
       <table>
         <tr>
-          <td class="toy-div-col1">
-            <img class="toy-div-img" id="hardchoice_ToyA" src="images/toys/activatedToyA.jpg"></img>
+          <td id="toy-div-col1">
+            <img class="toy-div-img" id="toyA" src="images/toys/activatedToyA.jpg"></img>
           </td>
-          <td class="toy-div-col2">
-            <img class="toy-div-img" id="hardchoice_ToyB" src="images/toys/activatedToyB.jpg"></img>
+          <td id="toy-div-col2">
+            <img class="toy-div-img" id="toyB" src="images/toys/activatedToyB.jpg"></img>
           </td>
         </tr>
       </table>
@@ -273,11 +414,11 @@ on the exploratory play slides for each toy.-->
      <div class="toy-div">
       <table>
         <tr>
-          <td class="toy-div-col1">
-            <img class="toy-div-img" id="coolchoice_ToyA" src="images/toys/activatedToyA.jpg"></img>
+          <td id="toy-div-col1">
+            <img class="toy-div-img" id="toyA" src="images/toys/activatedToyA.jpg"></img>
           </td>
-          <td class="toy-div-col2">
-            <img class="toy-div-img" id="coolchoice_ToyB" src="images/toys/activatedToyB.jpg"></img>
+          <td id="toy-div-col2">
+            <img class="toy-div-img" id="toyB" src="images/toys/activatedToyB.jpg"></img>
           </td>
         </tr>
       </table>
