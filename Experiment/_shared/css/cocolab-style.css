@@ -91,6 +91,10 @@ textarea {
 	float: left;
 }
 
+.slider_table .middle {
+	display: inline;
+	text-align:center;
+}
 .slider_table .right {
 	display: inline;
 	text-align: right;
