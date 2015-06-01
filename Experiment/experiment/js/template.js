@@ -287,10 +287,10 @@ slides.teach_explanation =  slide({
       console.log(exp.toy_taught);
       if (exp.toy_taught == "Toy A") {
         console.log("Subject chose Toy A");
-        $("#toy_taught_img").attr("src",exp.teachToyA_img);
+        $("#teach_img").attr("src",exp.teachToyA_img);
       } else {
         console.log("Subject chose Toy B");
-        $("#toy_taught_img").attr("src",exp.teachToyB_img);
+        $("#teach_img").attr("src",exp.teachToyB_img);
       }
     
      },
