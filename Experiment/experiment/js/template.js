@@ -241,6 +241,7 @@ slides.confidence_level = slide({
       });
     }
   });
+
 slides.teach_explanation =  slide({
     name : "teach_explanation",
     start: function() {
@@ -276,6 +277,39 @@ slides.teach_explanation =  slide({
     }
   });
 
+ slides.teach_exp_code =  slide({
+    name : "teach_exp_code",
+    start: function() {
+      $(".err").hide();
+      this.startTime = Date.now();
+
+      console.log(exp.condition);
+      console.log(exp.toy_taught);
+      if (exp.toy_taught == "Toy A") {
+        console.log("Subject chose Toy A");
+        $("#toy_taught_img").attr("src",exp.teachToyA_img);
+      } else {
+        console.log("Subject chose Toy B");
+        $("#toy_taught_img").attr("src",exp.teachToyB_img);
+      }
+    
+     },
+    submit : function(e){
+      //if (e.preventDefault) e.preventDefault(); // I don't know what this means.
+     this.endTime = Date.now()
+      this.rt = (this.endTime - this.startTime)/1000;
+      this.response = $("#teach_code").val();
+
+      if (this.response == "-1") {
+        console.log("No response given.")
+        $(".err").show();
+      } else {
+        exp.why_code_data = {
+        "response": this.response,
+        "rt_in_seconds" : this.rt };
+      exp.go(); //use exp.go() if and only if there is no "present" data.
+    }
+ } });
  slides.hard_choice = slide({
     name : "hard_choice",
 
@@ -387,6 +421,7 @@ slides.teach_explanation =  slide({
           "trials" : exp.data_trials,
           "catch_trials" : exp.catch_trials,
           "teach_explanation" : exp.why_data,
+          "teach_exp_code" : exp.why_code_data,
           // "toy_taught": exp.toy_choice,
           "system" : exp.system,
           "condition" : exp.condition,
@@ -507,7 +542,7 @@ function init() {
 // teachunactivatedLCLVToyB
 
   // exp.condition = "LCHV_HCLV"; 
-  exp.condition = _.sample(["LCLV_LCLV", "LCHV_LCLV", "LCLV_HCLV", "LCLV_HCHV", "LCHV_HCLV"]);
+  exp.condition = _.sample(["LCHV_LCLV", "LCLV_HCLV", "LCHV_HCLV"]);
   console.log(exp.condition)
   var res = exp.condition.split("_");
   exp.conditionToyA = res[0];
@@ -532,7 +567,7 @@ function init() {
     };
   //blocks of the experiment:
   exp.structure=["i0", "instructions", "display_toys", "explore_toyA", "catch_trial_toyA", "explore_toyB","catch_trial_toyB", "response_trial", "confidence_level",
-  "teach_explanation", "hard_choice", "cool_choice", 'subj_info', 'thanks'];
+  "teach_explanation", "teach_exp_code", "hard_choice", "cool_choice", 'subj_info', 'thanks'];
   // exp.structure=["i0", "instructions", "single_trial", "response_trial", "teach_explanation", 'subj_info', 'thanks'];
   exp.toy_taught = "";
 

@@ -107,7 +107,7 @@ on the exploratory play slides for each toy.-->
   <div class="err"><p>It looks like you haven't activated the toy yet! Please continue exploring the toy by clicking the button(s).</p></div>
 </div>
   <div class="slide"  id="catch_trial_toyA">
-    <p>Can you show me how Toy A works?</p>
+    <p><b>Can you show me how Toy A works?</b></p>
     <center><img width=400px height=300px id="catch_ToyA" src="images/toys/teachToyA.jpg"></img></center>
       <div id="catch_ToyA_div">
 <!--     <img src="images/toys/redbutton1.png" width=50>
@@ -143,7 +143,7 @@ on the exploratory play slides for each toy.-->
   <div class="err">It looks like you haven't activated the toy yet! Please continue exploring the toy by clicking the button(s).</div>
 </div>
   <div class="slide"  id="catch_trial_toyB">
-    <p>Can you show me how Toy B works?</p>
+    <p><b>Can you show me how Toy B works?</b></p>
     <center><img width=400px height=300px id="catch_ToyB" src="images/toys/teachToyB.jpg"></img></center>
       <div id="catch_ToyB_div">
       </div>
@@ -162,7 +162,7 @@ on the exploratory play slides for each toy.-->
 
   <div class="slide" id="response_trial">
     <p>This is Ollie. Ollie does not know how these toys work. 
-    <br> But he really wants to make <b>both</b> of them go.
+    <br> But he really wants to make <b>both</b> of the toys go.
     <br> You can help Ollie and <b>teach him</b> how <b>ONE of these toys</b> works. <br> He will try the other toy by himself. 
  
     <center><img src="images/toys/ollie.png" ></img></center>
@@ -251,8 +251,31 @@ on the exploratory play slides for each toy.-->
 
 </div>
 
+<div class="slide" id="teach_exp_code">
+ <p><b>Which option in the drop-down menu below best describes your explanation from the previous page?</b>
+</p>
+ <!-- 720 × 616 -->
+      <center><img id="toy_taught_img" width=400px height=300px src="images/toys/teachToyA.jpg"></img></center>
+      <br>
+         <p>I chose to teach Ollie this toy because:
+        <select id="teach_code">
+          <label><option value="-1"/></label>
+          <label><option value="0"/>the toy has cooler effects.</label>
+          <label><option value="1"/>the toy is harder to figure out.</label>
+          <label><option value="2"/>the toy has cooler effects and is harder to figure out.</label>
+          <label><option value="3"/>not sure why.</label>
+          <label><option value="4"/>none of the above apply.</label>
+        </select>
+      </p>
+      <br/>
+      
+      <button onclick="_s.submit()">Continue</button>
+      <div class="err">Please select a response above before continuing.</div>
+
+</div>
+
 <div class="slide" id="hard_choice">
-	<p>Which toy was harder to figure out?</p>
+	<p><b>Which toy was harder to figure out?</b></p>
      <div class="toy-div">
       <table>
         <tr>
@@ -280,7 +303,7 @@ on the exploratory play slides for each toy.-->
 
   
  <div class="slide" id="cool_choice">
-    <p>Which toy has the cooler effect?</p>
+    <p><b>Which toy has the cooler effect?</b></p>
      <div class="toy-div">
       <table>
         <tr>
