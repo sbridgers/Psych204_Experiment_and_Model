@@ -51,7 +51,8 @@ function make_slides(f) {
         this.rt = (this.endTime - this.startTime)/1000;
         exp.data_trials.push({
         "trial_type" : "explore_ToyA",
-        "rt_in_seconds": this.rt
+        "rt_in_seconds": this.rt,
+        "condition":exp.condition
         });
         exp.go();
       } else {      
@@ -80,9 +81,10 @@ function make_slides(f) {
       // console.log(this.response)
       if (this.response != '' && this.response > 0 && this.response <= 10) {
         exp.catch_trials.push({
-        "condition" : "catch_toyA",
+        "trial_type" : "catch_toyA",
         "response": this.response,
-        "rt_in_seconds" : this.rt });
+        "rt_in_seconds" : this.rt,
+        "condition":exp.condition});
         exp.go(); //use exp.go() if and only if there is no "present" data.
        
       } else {
@@ -115,7 +117,8 @@ function make_slides(f) {
         this.rt = (this.endTime - this.startTime)/1000;
         exp.data_trials.push({
         "trial_type" : "explore_ToyB",
-        "rt_in_seconds": this.rt
+        "rt_in_seconds": this.rt,
+        "condition":exp.condition
         });
         exp.go();
       } else {      
@@ -143,9 +146,11 @@ function make_slides(f) {
       this.response = $("#how_toyB_works").val();
       if (this.response != '' && this.response > 0 && this.response <= 10) {
         exp.catch_trials.push({
-        "condition" : "catch_toyB",
+        "trial_type" : "catch_toyB",
         "response": this.response,
-        "rt_in_seconds" : this.rt });
+        "rt_in_seconds" : this.rt,
+        "condition":exp.condition
+            });
         exp.go(); //use exp.go() if and only if there is no "present" data.
        
       } else {
@@ -173,6 +178,7 @@ function make_slides(f) {
       	 this.rt = (this.endTime - this.startTime)/1000;
         exp.data_trials.push({
           "trial_type" : "subject_responses",
+           "condition":exp.condition,
           "response": "toyA",
           "rt_in_seconds": this.rt
         });
@@ -184,6 +190,7 @@ function make_slides(f) {
         this.rt = (this.endTime - this.startTime)/1000;
         exp.data_trials.push({
           "trial_type" : "subject_responses",
+          "condition":exp.condition,
           "response" : "toyB",
           "rt_in_seconds": this.rt
         });
@@ -236,6 +243,7 @@ slides.confidence_level = slide({
       this.rt = (this.endTime - this.startTime)/1000;
       exp.data_trials.push({
         "trial_type" : "confidence_level",
+        "condition":exp.condition,
         "response" : exp.sliderPost,
         "rt_in_seconds": this.rt
       });
@@ -271,6 +279,7 @@ slides.teach_explanation =  slide({
       } else {
         exp.why_data = {
         "response": this.response,
+        "condition":exp.condition,
         "rt_in_seconds" : this.rt };
         exp.go(); //use exp.go() if and only if there is no "present" data.
       }
@@ -306,6 +315,7 @@ slides.teach_explanation =  slide({
       } else {
         exp.why_code_data = {
         "response": this.response,
+        "condition":exp.condition,
         "rt_in_seconds" : this.rt };
       exp.go(); //use exp.go() if and only if there is no "present" data.
     }
@@ -347,6 +357,7 @@ slides.teach_explanation =  slide({
       this.rt = (this.endTime - this.startTime)/1000;
       exp.data_trials.push({
         "trial_type" : "hard_choice",
+        "condition":exp.condition,
         "response" : exp.sliderPost,
         "rt_in_seconds": this.rt
       });
@@ -388,6 +399,7 @@ slides.teach_explanation =  slide({
       this.rt = (this.endTime - this.startTime)/1000;
       exp.data_trials.push({
         "trial_type" : "cool_choice",
+                "condition":exp.condition,
         "response" : exp.sliderPost,
         "rt_in_seconds": this.rt
       });
