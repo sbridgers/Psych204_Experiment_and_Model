@@ -3,3 +3,10 @@
 /Experiment/experiment/makeToys.pptx
 
 /Experiment/experiment/makeToysCurrent.pptx
+
+Manuscript/*.pdf
+Manuscript/*.bbl
+Manuscript/*.aux
+Manuscript/*.log
+Manuscript/*.syntex.gz
+Manuscript/*.out
