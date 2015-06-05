@@ -25,6 +25,15 @@
 \usepackage{apacite}
 \usepackage{color}
 \usepackage{url}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+
+\lstset{
+  language=Scheme
+}
+
 %\usepackage{hyperref}
 %\hypersetup{
 %    colorlinks=true,
@@ -51,15 +60,6 @@
 
 \maketitle
 
-
-\begin{abstract}
-To-Do
-
-\textbf{Keywords:} 
-pedagogy; social learning; cost-benefit analysis; Bayesian models
-\end{abstract}
-
-
 \section{Introduction}
 
 Teaching is one of the most powerful forms of human communication, enabling a rapid, effective dissemination of knowledge and culture within and across generations. Remarkably, we decide what information to teach without direct access to the learner's mind and often without explicit requests for information. How do we make this inference and how does this capacity develop? 
@@ -81,25 +81,51 @@ In this paper, we first describe the details of the model and show that it predi
 
 \section{Model}
 
-Central to our modeling approach are the ideas discussed in chapter 6 (Inference about inference) of Probabilistic Models of Cognition \cite{Goodman}. Our efficient teaching model merges the vending machine model and the teacher-learner model (both presented in chapter 6).  We modified the 'make-vending-machine' function to a 'make-toy' function: toys take a single action as an argument and return either an effect or nothing. Each possible action on a toy has a certain probability of producing the effect. Put simply, each toy has one to multiple buttons, and when pressed these buttons produce an outcome (e.g., something lights up) with high probability (90\%) or low probability (10\%). In the scenarios we consider, there are always two toys, which we will refer to as toy A and toy B, varying in learning cost and value (e.g., a toy that is easy to learn but high in value versus a toy that is hard to learn but low in value). The cost of learning is represented as the uncertainty over what action will cause the toy to produce an outcome; thus, cost increases as the number of buttons (possible actions) increases. The value of learning is represented as the quantity of the outcome (currently the number of lights). For all of the toys we consider, one button produces the effect(s) with high probability and all additional buttons with low probability.
+Central to our modeling approach are the ideas discussed in chapter 6 (Inference about inference) of Probabilistic Models of Cognition \cite{Goodman}. Our efficient teaching model merges the vending machine model and the teacher-learner model (both presented in chapter 6).  We modified the 'make-vending-machine' function to a 'make-toy' function: toys take a single action as an argument and return either an effect or nothing. Each possible action on a toy has a certain probability of producing the effect. Put simply, each toy has one to multiple buttons, and when pressed these buttons produce an outcome (e.g., something lights up) with high probability (90\%) or low probability (10\%). In the scenarios we consider, there are always two toys, which we will refer to as toy A and toy B, varying in learning cost and value (e.g., a toy that is easy to learn but high in value versus a toy that is hard to learn but low in value). The cost of learning is represented as the uncertainty over what action will cause the toy to produce an outcome; thus, cost increases as the number of buttons (possible actions) increases. The value of learning is represented as the quantity of the outcome (currently the number of lights). For all of the toys we consider, one button produces the effect(s) with high probability and all additional buttons with low probability. 
 
-The learner is represented as a function that takes in her goal (to activate both toys) and a message from the teacher about how one of the two toys works. Prior to receiving the teacher's message, the learner does not know how either of the toys works (expressed as not knowing the probability of effect associated with the possible actions on each toy).  As a result of the teacher's message, the learner knows how one toy works but does not know about the other toy and will need to figure it out on her own. We query the learner model for the actions she takes on toy A and toy B conditioning on her goal being satisfied (i.e., that she successfully activates the toys). The learner function thus returns the probability that the leaner will successfully activate both toys, $a$, given the message the teacher sends about one toy, $t$, and the learner's goal of activating both, $g_{learner}$ ($P_{learner}(a | t, g_{learner})$). 
+The learner has a particular goal in mind (to activate both toys) and receives a message from the teacher about how one of the two toys works. Prior to receiving the teacher's message, the learner does not know how either of the toys works (expressed as not knowing the probability of effect associated with the possible actions on each toy). The transition function from possible actions to outcomes for one toy is revealed to the learner by the teacher; the learner remains unaware of the transition function for the other toy. We query the learner model for the actions she takes on toy A and toy B conditioning on her goal being satisfied. The learner function thus returns the probability that the leaner will successfully activate both toys, $a$, given the message the teacher sends about one toy, $t$, and the learner's goal of activating both, $g_{learner}$ ($P_{learner}(a | t, g_{learner})$). See pseudocode below for the learner and teacher models.
 
-The teacher is represented as a function with no arguments. The teacher knows how both toy A and toy B works (expressed as having knowledge of the probability of effect for each possible action on the toys). The teacher also has knowledge of the learner's goal to activate both toys. The learner's goal is represented within the teacher-model as a boolean utility function that takes the outcomes of the learner's actions on each toy as arguments. The function returns true if the learner's actions bring about an effect and false otherwise. We assume that the learner wants to maximize the reward of her actions and see the highest possible number of effects (e.g., the highest number of lights); however, we also assume that the learner is \textit{soft-max} optimal. We implement this notion in the model by making the conditions that satisfy the learner's goal probabilistic: the learner's goal function is most likely to return true if the learner's actions bring about the maximal effect across the two toys, but sometimes it returns true for sub-optimal returns. 
+\begin{lstlisting}
+;; Learner model
+(define (learner toy-message)
+(query
+(define toyA-action (toyA-action-prior))
+(define how-learner-thinks-toyA-works (make-toy toy-message))
+...
+
+(list toyA-action toyB-action) 
+
+(learner-goal? 			
+(how-learner-thinks-toyA-works toyA-action) 
+(how-learner-thinks-toyB-works toyB-action))))
+
+;; Teacher model
+(define (teacher)
+(query
+(define toy-message (teach-prior)
+...
+
+toy-message 
+
+(teacher-goal? (learner toy-message))))) 
+\end{lstlisting}
+
+%TO write code \lstinline{in line}.
+The teacher knows how both toy A and toy B works (expressed as having knowledge of the probability of effect for each possible action on the toys). The teacher also has knowledge of the learner's goal to activate both toys. The learner's goal is represented within the teacher-model as a boolean utility function that takes the outcomes of the learner's actions on each toy as arguments. The function returns true if the learner's actions bring about an effect and false otherwise. We assume that the learner wants to maximize the reward of her actions and see the highest possible number of effects (e.g., the highest number of lights); however, we also assume that the learner is \textit{soft-max} optimal. We implement this notion in the model by making the conditions that satisfy the learner's goal probabilistic: the learner's goal function is most likely to return true if the learner's actions bring about the maximal effect across the two toys, but sometimes it returns true for sub-optimal returns. 
 
 We assume the teacher is helpful and that her goal is for the learner to figure out how both toys work (i.e., that the learner will perform an action on each toy that successfully brings about an effect). The teacher's goal is also represented as a boolean function that takes the learner's actions on the toys as arguments and returns true (i.e, the goal is satisfied) if these actions bring about an effect and false otherwise. Similar to our assumptions about the learner, we assume the teacher is \textit{soft-max} optimal and implement this notion in the same way we do for the learner. 
 
-However, though the teacher wants the learner to successfully activate both toys, the teacher can only teach the learner how \textit{one} of the toys works. We formalize this constraint as the teacher sends the button-effects for one toy and "naive-notions" of the button effects for the other toy (i.e., that each button on this toy is equally likely to bring about the effect). Thus, the teacher must decide to teach the toy that will maximize the probability that the learner will successfully activate both toys; we expect the teacher to select the toy that reduces the greatest amount of uncertainty for the learner about how the toys work. We query the teacher model for the toy she teaches (i.e., the message with the button-effects for \textit{either} toy A or toy B that she sends to the learner-model), and we condition on her goal being satisfied. The teacher function thus returns the probability that the teacher will teach one of the toys, $t$, given the teacher's goal, $g_{teacher}$, defined in terms of the effects the learner's actions (based on the teacher's message) achieve ($P_{teacher}(t | g_{teacher})$).
+However, though the teacher wants the learner to successfully activate both toys, the teacher can only teach the learner how \textit{one} of the toys works. We formalize this constraint as the teacher sends the transition function for one toy and "naive-notions" of the button effects for the other toy (i.e., that each button on this toy is equally likely to bring about the effect). Thus, the teacher must decide to teach the toy that will maximize the probability that the learner will successfully activate both toys; we expect the teacher to select the toy that reduces the greatest amount of uncertainty for the learner about how the toys work. We query the teacher model for the toy she teaches (i.e., the message with the transition function for \textit{either} toy A or toy B that is sent to the learner-model), and we condition on her goal being satisfied. The teacher function thus returns the probability that the teacher will teach one of the toys, $t$, given the teacher's goal, $g_{teacher}$, defined in terms of the effects the learner's actions (based on the teacher's message) achieve ($P_{teacher}(t | g_{teacher})$).
 
-For complete details on how we implement our model of efficient teaching, please see the \url{https://github.com/sbridgers/Psych204_Experiment_and_Model/blob/master/ModelCode/TeacherModel.md} for the model online.
+For complete details on how we implement our model of efficient teaching, please see the \url{https://github.com/sbridgers/Psych204_Experiment_and_Model/blob/master/ModelCode/TeacherModelFinal.md} for the model online.
 
 \subsection{Model Predictions}
 
-We test the predictions of our model for a series of scenarios comparing toys varying in expected learning cost and value. We find that for each of these scenarios, the model's predictions are consistent with our intuitions. 
+We test the predictions of our model for a series of scenarios comparing toys varying in expected learning cost and value. We find that for each of these scenarios, except for one, the model's predictions are consistent with our intuitions. 
 
-We first see what the model predicts the teacher will teach when choosing between two toys equal in cost but unequal in value. We find, as we would expect, that the model does not make a strong prediction in this scenario: the probability that the teacher teaches each of the toys is approximately 50\%. Next, we see what the model predicts when toy A and toy B are equal in cost (e.g., they each have two buttons) but unequal in value (e.g., toy A produces two effects, while toy B only produces one). We find that in this scenario, the teacher teaches toy A with a higher probability than toy B ($P(toyA) \sim 57\%$). 
+We first see what the model predicts the teacher will teach when choosing between two toys equal in cost and equal in value. We find, as we would expect, that the model does not make a strong prediction: the probability that the teacher teaches each of the toys is 50\%. Next, we see what the model predicts when toy A and toy B are equal in low cost (e.g., they each have one button) but unequal in value (e.g., toy A produces two effects, while toy B only produces one). We find that again the model does not make a strong prediction: the probability of teaching either toy is 50\%. This contrasts with our intuitions that the teacher would more likely teach the high value toy; however, our model makes this prediction because with only one button on each toy, regardless of which toy is taught, there is no uncertainty that the learner will successfully activate both toys. If such uncertainty exists (e.g., both toys have two buttons), the model then predicts that the probability of teaching toy A is \textbf{higher} than the probability of teaching toy B. 
 
-When choosing between two toys unequal in cost but equal in value, the model predicts the teacher will teach the toy with the higher expected cost of learning. For example, if both toys produce two effects but toy A has one button, while toy B has 7, the model predicts the teacher will teach toy B with higher probability than toy A ($P(toyB) \sim 60\%$). Relatedly, if toy B is associated with the higher cost \textit{and} the higher value (e.g., toy B has 7 buttons and produces two effects, while toy A has one button and only produces one effect), the model again predicts the teacher will teach toy B with higher probability than toy A ($P(toyB) \sim 65\%$).
+When choosing between two toys unequal in cost but equal in value, the model predicts the teacher will teach the toy with the higher expected cost of learning. For example, if both toys produce two effects but toy A has one button, while toy B has 10, the model predicts the teacher will teach toy B with \textbf{higher} probability than toy A . Relatedly, if toy B is associated with the higher cost \textit{and} the higher value (e.g., toy B has 7 buttons and produces two effects, while toy A has one button and only produces one effect), the model again predicts the teacher will teach toy B with higher probability than toy A ($P(toyB) \sim 65\%$).
 
 Thus far the scenarios we have considered have fairly straight forward intuitive predictions, and we have shown that the model's predictions match our own. When the toys are matched in cost and value, the model predicts that teacher will teach each toy with equal probability. When the toys are matched in value, but unequal in cost, the model predicts that the teacher will teach the toy with higher cost with greater probability than the toy with lower cost. When the toys are mis-matched in value and unequal in cost, the model predicts that the teacher will most probably teach the toy with higher cost when that toy also has the higher value. But what about when the toy with higher cost is lower in value than the toy with lower cost? What toy should the teacher teach: the toy that has a higher expected value of learning or the toy that has a higher expected cost? We assume that in this scenario teaching the toy with higher cost is the most helpful because it reduces the greatest amount of uncertainty for the learner and maximizes the probability that she will be able to successfully activate \textit{both} toys. We find that the model's predictions here are again consistent with our intuitions: when toy B is higher in cost but lower in value than toy A, the model predicts the teacher will teach toy B with a higher probability than toy A ($P(toyB) \sim 55\%$).
 
@@ -148,7 +174,6 @@ Adult performance is summarized in Figure 1. In the Unequal Cost and Equal Low V
 \end{figure}
 
 \subsubsection{Comparing Model Predictions with Adult Performance}
-ADD IN NUMBERS
 Our model predictions are consistent with adult performance for the Unequal Cost and Equal Low Value condition, both qualitatively and quantitatively. A higher proportion of adults in this condition chose to teach the high cost toy, Toy B, than chose to teach the low cost toy, Toy A. Our model predicted this as well: the high cost toy (which has a higher number of buttons than the low cost toy) is probabilistically more difficult to figure out and there is a higher degree of uncertainty whether the child learner will successfully activate this toy. Thus, our model predicted that the teacher would more often select to teach Toy B since teaching this toy reduces the greatest amount of uncertainty for the learner and maximizes the probability that the learner will figure out both toys. 
 
 For the other two conditions, the adult performance deviates from our model predictions. In the Equal Low Cost and Unequal Value condition, adults were more likely to choose to teach the low value toy rather than the high value toy, while our model predicted that adults would select to teach either toy with equal probability. Our model makes this prediction because there is only one button on each toy, so there is no uncertainty that the learner will successfully activate both toys regardless of which toy is taught.
